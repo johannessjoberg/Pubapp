@@ -1,4 +1,3 @@
-<?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -18,39 +17,33 @@
                 android:id="@+id/tvI"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/goldeni_des"/>
+                android:text="Golden I"/>
             
-            <Button
-                android:id="@+id/GoldenI"
-                android:layout_width="fill_parent"
-                android:layout_height="75dp"
-                android:text="@string/goldeni"
-                />
-
-             <TextView 
+            <TextView 
                 android:id="@+id/tvD"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
-                android:text="Datateknik"/>
+                android:text="Industriell Ekonomi"/>
             
             <Button
-                android:id="@+id/button2"
+                android:id="@+id/button1"
                 android:layout_width="fill_parent"
                 android:layout_height="75dp"
-                android:text="Basen" />
+                android:text="Här ska det vara en bild"
+                />
 
             <TextView 
                 android:id="@+id/tvIT"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
-                android:text="Wannabe Datateknikutbildningen"/>
+                android:text="På Golden I kan man dricka öl och stöta på I brudar."/>
             
-            <Button
-                android:id="@+id/button3"
+            <TextView 
+                android:id="@+id/tvIT"
                 android:layout_width="fill_parent"
-                android:layout_height="75dp"
-                android:text="Hubben" />
-        </LinearLayout>
+                android:layout_height="wrap_content"
+                android:text="Länk till karta"/>
+		</LinearLayout>
     </ScrollView>
     
 

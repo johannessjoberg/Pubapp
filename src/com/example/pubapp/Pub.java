@@ -1,15 +1,15 @@
 package com.example.pubapp;
 
-import android.os.Bundle;
 import android.app.Activity;
 import android.content.Intent;
+import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.TabHost;
-import android.widget.TabHost.TabSpec;
 
-public class Main extends Activity {
-
+public class Pub extends Activity {
+	
+	public void Pubar(){
+	}
 	
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
@@ -23,11 +23,10 @@ public class Main extends Activity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.main);
+		setContentView(R.layout.pub);
 		
 	}
 	
-	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
 	    // Handle item selection
 	    switch (item.getItemId()) {
@@ -51,6 +50,4 @@ public class Main extends Activity {
 	            return super.onOptionsItemSelected(item);
 	    }
 	}
-
-
 }

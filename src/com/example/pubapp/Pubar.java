@@ -1,15 +1,21 @@
 package com.example.pubapp;
 
-import android.os.Bundle;
 import android.app.Activity;
 import android.content.Intent;
+import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.TabHost;
-import android.widget.TabHost.TabSpec;
+import android.view.View;
+import android.view.View.OnClickListener;
+import android.widget.Button;
 
-public class Main extends Activity {
-
+public class Pubar extends Activity {
+	
+	Button goldenI;
+	
+	
+	public void Pubar(){
+	}
 	
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
@@ -21,13 +27,22 @@ public class Main extends Activity {
 	} 
 	
 	@Override
-	protected void onCreate(Bundle savedInstanceState) {
+	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.main);
+		setContentView(R.layout.pubar);
+		
+		goldenI = (Button) findViewById(R.id.GoldenI);
+		goldenI.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				Intent intent = new Intent(v.getContext(), Pub.class);
+				startActivity(intent);
+			}
+		});
 		
 	}
 	
-	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
 	    // Handle item selection
 	    switch (item.getItemId()) {
@@ -51,6 +66,4 @@ public class Main extends Activity {
 	            return super.onOptionsItemSelected(item);
 	    }
 	}
-
-
 }
