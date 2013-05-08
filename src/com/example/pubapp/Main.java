@@ -18,6 +18,7 @@ public class Main extends Activity {
 		getActionBar().setDisplayShowTitleEnabled(false);
 		
 		return true;
+		
 	} 
 	
 	@Override
