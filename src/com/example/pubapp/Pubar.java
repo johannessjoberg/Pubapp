@@ -17,6 +17,14 @@ public class Pubar extends Activity {
 	public void Pubar(){
 	}
 	
+	private static class PubarHolder{
+		private static final Pubar INSTANCE = new Pubar();
+	}
+	
+	public static Pubar getInstance(){
+		return PubarHolder.INSTANCE;
+	}
+	
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		getMenuInflater().inflate(R.menu.main_menu, menu);
@@ -27,7 +35,7 @@ public class Pubar extends Activity {
 	} 
 	
 	@Override
-	public void onCreate(Bundle savedInstanceState) {
+	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.pubar);
 		

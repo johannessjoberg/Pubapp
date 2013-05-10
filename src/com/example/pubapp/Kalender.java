@@ -1,5 +1,7 @@
 package com.example.pubapp;
 
+
+
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
@@ -11,6 +13,16 @@ public class Kalender extends Activity{
 	public void Kalender(){
 	}
 	
+	private static class KalenderHolder{
+		private static final Kalender INSTANCE = new Kalender();
+	}
+	
+	public static Kalender getInstance(){
+		return KalenderHolder.INSTANCE;
+	}
+	
+	
+	
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		getMenuInflater().inflate(R.menu.main_menu, menu);
@@ -21,7 +33,7 @@ public class Kalender extends Activity{
 	} 
 	
 	@Override
-	public void onCreate(Bundle savedInstanceState) {
+	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.kalender);
 	}

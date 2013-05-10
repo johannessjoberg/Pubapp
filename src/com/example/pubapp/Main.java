@@ -1,5 +1,7 @@
 package com.example.pubapp;
 
+
+
 import android.os.Bundle;
 import android.app.Activity;
 import android.content.Intent;
@@ -10,6 +12,18 @@ import android.widget.TabHost.TabSpec;
 
 public class Main extends Activity {
 
+	
+	
+	
+	
+	private static class MainHolder{
+		private static final Main INSTANCE = new Main();
+	}
+	
+	public static Main getInstance(){
+		return MainHolder.INSTANCE;
+	}
+	
 	
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {

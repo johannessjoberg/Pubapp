@@ -11,6 +11,17 @@ public class Runda extends Activity{
 	public void Runda(){
 	}
 	
+	
+	private static class RundaHolder{
+		private static final Runda INSTANCE = new Runda();
+	}
+	
+	public static Runda getInstance(){
+		return RundaHolder.INSTANCE;
+	}
+	
+	
+	
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		getMenuInflater().inflate(R.menu.main_menu, menu);
@@ -21,7 +32,7 @@ public class Runda extends Activity{
 	} 
 	
 	@Override
-	public void onCreate(Bundle savedInstanceState) {
+	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.runda);
 	}
