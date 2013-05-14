@@ -11,7 +11,7 @@ import android.widget.Button;
 
 public class Pubar extends Activity {
 	
-	Button goldenI;
+	Button bGoldenI;
 	
 	
 	public void Pubar(){
@@ -39,8 +39,8 @@ public class Pubar extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.pubar);
 		
-		goldenI = (Button) findViewById(R.id.GoldenI);
-		goldenI.setOnClickListener(new OnClickListener() {
+		bGoldenI = (Button) findViewById(R.id.bGoldenI);
+		bGoldenI.setOnClickListener(new OnClickListener() {
 			
 			@Override
 			public void onClick(View v) {
