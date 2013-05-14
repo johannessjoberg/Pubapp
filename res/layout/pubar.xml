@@ -18,13 +18,17 @@
                 android:id="@+id/tvElvan"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
-                android:text="11:an"/>
+                android:text="11:an"
+                />
             
             <Button
                 android:id="@+id/bElvan"
                 android:layout_width="fill_parent"
                 android:layout_height="75dp"
-                android:text="11:an" />
+                android:text="11:an" 
+                style="@style/elvan"
+                android:layout_marginLeft="2dp"
+                android:layout_marginRight="2dp"/>
             
             <TextView 
                 android:id="@+id/tvD"
@@ -36,7 +40,10 @@
                 android:id="@+id/bBasen"
                 android:layout_width="fill_parent"
                 android:layout_height="75dp"
-                android:text="Basen" />
+                android:text="Basen"
+                style="@style/basen"
+                android:layout_marginLeft="2dp"
+                android:layout_marginRight="2dp" />
             
             <TextView 
                 android:id="@+id/tvM"
@@ -48,7 +55,10 @@
                 android:id="@+id/bBulten"
                 android:layout_width="fill_parent"
                 android:layout_height="75dp"
-                android:text="Bulten" />
+                android:text="Bulten" 
+                style="@style/bulten"
+                android:layout_marginLeft="2dp"
+                android:layout_marginRight="2dp"/>
             
             <TextView 
                 android:id="@+id/tvCIF"
@@ -60,7 +70,10 @@
                 android:id="@+id/bClubAvancez"
                 android:layout_width="fill_parent"
                 android:layout_height="75dp"
-                android:text="Club Avancez" />
+                android:text="Club Avancez" 
+                style="@style/clubA"
+                android:layout_marginLeft="2dp"
+                android:layout_marginRight="2dp"/>
             
             <TextView 
                 android:id="@+id/tvF"
@@ -72,7 +85,10 @@
                 android:id="@+id/bFocus"
                 android:layout_width="fill_parent"
                 android:layout_height="75dp"
-                android:text="Focus" />
+                android:text="Focus" 
+                style="@style/focus"
+                android:layout_marginLeft="2dp"
+                android:layout_marginRight="2dp"/>
             
             <TextView 
                 android:id="@+id/tvK"
@@ -84,19 +100,26 @@
                 android:id="@+id/bFortNox"
                 android:layout_width="fill_parent"
                 android:layout_height="75dp"
-                android:text="FortNOx" />
+                android:text="FortNOx" 
+                style="@style/fortnox"
+                android:layout_marginLeft="2dp"
+                android:layout_marginRight="2dp"/>
             
             <TextView 
                 android:id="@+id/tvKaren"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
-                android:text="Kårens Egna Pub"/>
+                android:text="Kårens Egna Pub"
+                />
             
             <Button
                 android:id="@+id/bGasquen"
                 android:layout_width="fill_parent"
                 android:layout_height="75dp"
-                android:text="Gasquen" />
+                android:text="Gasquen"
+                style="@style/gasqueen"
+                android:layout_marginLeft="2dp"
+                android:layout_marginRight="2dp" />
             
             <TextView 
                 android:id="@+id/tvKF"
@@ -108,20 +131,23 @@
                 android:id="@+id/bGasTown"
                 android:layout_width="fill_parent"
                 android:layout_height="75dp"
-                android:text="GasTown" />
+                android:text="GasTown" 
+                style="@style/gastown"
+                android:layout_marginLeft="2dp"
+                android:layout_marginRight="2dp"/>
             
             <TextView 
                 android:id="@+id/tvI"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/goldeni_des"/>
+                android:text="Industriell Eknomi"/>
             
             <Button
                 android:id="@+id/bGoldenI"
                 android:layout_width="fill_parent"
                 android:layout_height="75dp"
-                android:text="@string/goldeni"
-                style="@style/goldenI"
+                android:text="Golden I"
+                style="@style/goldeni"
                 android:layout_marginLeft="2dp"
                 android:layout_marginRight="2dp"/>
 
@@ -135,7 +161,10 @@
                 android:id="@+id/bIT"
                 android:layout_width="fill_parent"
                 android:layout_height="75dp"
-                android:text="Hubben" />
+                android:text="Hubben" 
+                style="@style/huben"
+                android:layout_marginLeft="2dp"
+                android:layout_marginRight="2dp"/>
             
             <TextView 
                 android:id="@+id/tvJAPripps"
@@ -147,7 +176,11 @@
                 android:id="@+id/bJAPripps"
                 android:layout_width="fill_parent"
                 android:layout_height="75dp"
-                android:text="J.A. Pripps" />
+                android:text="J.A. Pripps"
+                style="@style/japripps"
+                android:layout_marginLeft="2dp"
+                android:layout_marginRight="2dp" />
+            
             <TextView 
                 android:id="@+id/tvTD"
                 android:layout_width="fill_parent"
@@ -158,7 +191,10 @@
                 android:id="@+id/bJarvagspub"
                 android:layout_width="fill_parent"
                 android:layout_height="75dp"
-                android:text="Järnvägspub" />
+                android:text="Järnvägspub"
+                style="@style/jarnvag"
+                android:layout_marginLeft="2dp"
+                android:layout_marginRight="2dp"  />
             
             <TextView 
                 android:id="@+id/tvE"
@@ -170,7 +206,10 @@
                 android:id="@+id/bKajsabaren"
                 android:layout_width="fill_parent"
                 android:layout_height="75dp"
-                android:text="Kajsabaren" />
+                android:text="Kajsabaren"
+                style="@style/kajsabaren"
+                android:layout_marginLeft="2dp"
+                android:layout_marginRight="2dp" />
             
             <TextView 
                 android:id="@+id/tvSjo"
@@ -182,7 +221,10 @@
                 android:id="@+id/bPubP"
                 android:layout_width="fill_parent"
                 android:layout_height="75dp"
-                android:text="PubP" />
+                android:text="PubP" 
+                style="@style/pubp"
+                android:layout_marginLeft="2dp"
+                android:layout_marginRight="2dp"/>
             
             <TextView 
                 android:id="@+id/tvA"
@@ -194,7 +236,25 @@
                 android:id="@+id/bRodaRummet"
                 android:layout_width="fill_parent"
                 android:layout_height="75dp"
-                android:text="Röda Rummet" />
+                android:text="Röda Rummet"
+                style="@style/rodarummet"
+                android:layout_marginLeft="2dp"
+                android:layout_marginRight="2dp" />
+            
+            <TextView 
+                android:id="@+id/tvVV"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:text="Väg och vatten"/>
+            
+            <Button
+                android:id="@+id/bSigurd"
+                android:layout_width="fill_parent"
+                android:layout_height="75dp"
+                android:text="Sigurd" 
+                style="@style/sigurd"
+                android:layout_marginLeft="2dp"
+                android:layout_marginRight="2dp"/>
             
             <TextView 
                 android:id="@+id/tvMwinden"
@@ -206,19 +266,25 @@
                 android:id="@+id/bWinden"
                 android:layout_width="fill_parent"
                 android:layout_height="75dp"
-                android:text="Winden" />
+                android:text="Winden"
+                style="@style/winden"
+                android:layout_marginLeft="2dp"
+                android:layout_marginRight="2dp" />
 				
             <TextView 
                 android:id="@+id/tvZ"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
-                android:text="Mekatronik"/>
+                android:text="Automation och mekatronik"/>
             
             <Button
                 android:id="@+id/bZaloonen"
                 android:layout_width="fill_parent"
                 android:layout_height="75dp"
-                android:text="Zaloonen" />
+                android:text="Zaloonen"
+                style="@style/zaloonen"
+                android:layout_marginLeft="2dp"
+                android:layout_marginRight="2dp" />
         </LinearLayout>
     </ScrollView>
     
