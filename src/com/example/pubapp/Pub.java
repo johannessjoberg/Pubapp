@@ -67,7 +67,7 @@ public class Pub extends Activity {
         tvTitle 	= (TextView) findViewById(R.id.tvTitle);
         tvSektion 	= (TextView) findViewById(R.id.tvSektion);
         tvWebUrl 	= (TextView) findViewById(R.id.tvWebUrl);
-        // BILDSHIT
+        ivImgUrl	= (ImageView) findViewById(R.id.ivImgUrl);
         tvInfo 		= (TextView) findViewById(R.id.tvInfo);
 		getInfo(id);
 		
@@ -142,13 +142,14 @@ public class Pub extends Activity {
 			}
 			catch(JSONException e){
 				Log.e("log_tag", "Error parsing data "+e.toString());
+				Log.e("log_tag", "Failed data was:\n" + result);
 			}
 
 			try{
 				tvTitle.setText(title);
 				tvSektion.setText(sektion);
 				tvWebUrl.setText(weburl);
-				// BILDSHIET	
+				ivImgUrl.setImageBitmap(getImageBitmap(imgurl));	
 				tvInfo.setText(info);
 			}
 			catch(Exception e){

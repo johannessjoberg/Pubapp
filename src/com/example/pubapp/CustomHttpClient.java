@@ -75,9 +75,7 @@ public class CustomHttpClient {
 	
 	   HttpResponse response = client.execute(request);
 	
-	   in = new BufferedReader(new InputStreamReader(response.getEntity()
-	
-	     .getContent()));
+	   in = new BufferedReader(new InputStreamReader(response.getEntity().getContent()));
 	
 	   
 	
