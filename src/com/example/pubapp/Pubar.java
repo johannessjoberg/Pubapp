@@ -39,12 +39,24 @@ public class Pubar extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.pubar);
 		
-		bGoldenI = (Button) findViewById(R.id.bGoldenI);
-		bGoldenI.setOnClickListener(new OnClickListener() {
+		Button goldenI = (Button) findViewById(R.id.bGoldenI);
+		goldenI.setOnClickListener(new OnClickListener() {
 			
 			@Override
 			public void onClick(View v) {
 				Intent intent = new Intent(v.getContext(), Pub.class);
+				intent.putExtra("id", "1");
+				startActivity(intent);
+			}
+		});
+		
+		Button basen = (Button) findViewById(R.id.bBasen);
+		basen.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				Intent intent = new Intent(v.getContext(), Pub.class);
+				intent.putExtra("id", "2");
 				startActivity(intent);
 			}
 		});

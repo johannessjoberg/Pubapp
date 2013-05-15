@@ -1,50 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
     android:orientation="vertical" >
+
+ <TextView
+        android:id="@+id/showresult"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text="No internet connection" />
     
-    <ScrollView
-        android:id="@+id/scrollView1"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" >
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical" >
-
-            <TextView 
-                android:id="@+id/tvI"
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:text="Golden I"/>
-            
-            <TextView 
-                android:id="@+id/tvD"
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:text="Industriell Ekonomi"/>
-            
-            <Button
-                android:id="@+id/button1"
-                android:layout_width="fill_parent"
-                android:layout_height="75dp"
-                android:text="Här ska det vara en bild"
-                />
-
-            <TextView 
-                android:id="@+id/tvIT"
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:text="På Golden I kan man dricka öl och stöta på I brudar."/>
-            
-            <TextView 
-                android:id="@+id/tvIT"
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:text="Länk till karta"/>
-		</LinearLayout>
-    </ScrollView>
-    
-
 </LinearLayout>
