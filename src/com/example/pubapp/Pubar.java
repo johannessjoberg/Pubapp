@@ -11,8 +11,6 @@ import android.widget.Button;
 
 public class Pubar extends Activity {
 	
-	Button bGoldenI;
-	
 	
 	public void Pubar(){
 	}

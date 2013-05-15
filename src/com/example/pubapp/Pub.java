@@ -1,5 +1,10 @@
 package com.example.pubapp;
 
+import java.io.BufferedInputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.net.URL;
+import java.net.URLConnection;
 import java.util.ArrayList;
 import org.apache.http.NameValuePair;
 import org.apache.http.message.BasicNameValuePair;
@@ -10,17 +15,24 @@ import org.json.JSONObject;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.os.StrictMode;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 public class Pub extends Activity {
 
 	
+	private static final String TAG = null;
 	TextView tv;      // TextView to show the result of MySQL query 
+	TextView tvTitle, tvSektion, tvWebUrl, tvInfo, tvNextEvent;
+	ImageView ivImgUrl;
+	String title, sektion, weburl, imgurl, info, nextevent;
 
 	String returnString;   // to store the result of MySQL query after decoding JSON
 	
@@ -51,7 +63,12 @@ public class Pub extends Activity {
 		Intent sender=getIntent();
         String id = sender.getExtras().getString("id");
 		
-        tv = (TextView) findViewById(R.id.showresult);
+        //tv 			= (TextView) findViewById(R.id.showresult);
+        tvTitle 	= (TextView) findViewById(R.id.tvTitle);
+        tvSektion 	= (TextView) findViewById(R.id.tvSektion);
+        tvWebUrl 	= (TextView) findViewById(R.id.tvWebUrl);
+        // BILDSHIT
+        tvInfo 		= (TextView) findViewById(R.id.tvInfo);
 		getInfo(id);
 		
 	}
@@ -107,10 +124,19 @@ public class Pub extends Activity {
 					Log.i("log_tag","id: "+json_data.getInt("id")+
 							", pubnamn: "+json_data.getString("pubnamn")+
 							", sektion: "+json_data.getString("sektion")+
+							", weburl: "+json_data.getString("weburl")+
+							", imgurl: "+json_data.getString("imgurl")+
 							", info: "+json_data.getString("info")
 							);
 					//Get an output to the screen
-					returnString += "\n" + json_data.getString("pubnamn") + "\n" + json_data.getString("sektion") + "\n" + json_data.getString("info");
+					//returnString += "\n" + json_data.getString("pubnamn") + "\n" + json_data.getString("sektion") + "\n" + json_data.getString("info");
+					
+					title = json_data.getString("pubnamn");
+					sektion = json_data.getString("sektion");
+					imgurl = json_data.getString("imgurl");
+					weburl = json_data.getString("weburl");
+					info = json_data.getString("info");
+					
 				}
 
 			}
@@ -119,7 +145,11 @@ public class Pub extends Activity {
 			}
 
 			try{
-				tv.setText(returnString);
+				tvTitle.setText(title);
+				tvSektion.setText(sektion);
+				tvWebUrl.setText(weburl);
+				// BILDSHIET	
+				tvInfo.setText(info);
 			}
 			catch(Exception e){
 				Log.e("log_tag","Error in Display!" + e.toString());;          
@@ -129,4 +159,21 @@ public class Pub extends Activity {
 			Log.e("log_tag","Error in http connection!!" + e.toString());     
 		}
 	}
+	
+    private Bitmap getImageBitmap(String url) {
+        Bitmap bm = null;
+        try {
+            URL aURL = new URL(url);
+            URLConnection conn = aURL.openConnection();
+            conn.connect();
+            InputStream is = conn.getInputStream();
+            BufferedInputStream bis = new BufferedInputStream(is);
+            bm = BitmapFactory.decodeStream(bis);
+            bis.close();
+            is.close();
+       } catch (IOException e) {
+           Log.e(TAG, "Error getting bitmap", e);
+       }
+       return bm;
+    } 
 }
