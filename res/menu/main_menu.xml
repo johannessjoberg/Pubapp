@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android" >
+    
+    <item 
+        android:id="@+id/mPubar"
+        android:title="Pubar"
+        android:orderInCategory="1"
+        android:showAsAction="always"    
+		/>	
+    	
+    <item 
+        android:id="@+id/mKarta"
+        android:title="Karta"
+        android:orderInCategory="2"
+        android:showAsAction="always"    
+		/>
+    <item 
+        android:id="@+id/mRunda"
+        android:title="Runda"
+        android:orderInCategory="3"
+        android:showAsAction="always"    
+		/>
+    <item 
+        android:id="@+id/mKal"
+        android:title="Kal"
+        android:orderInCategory="4"
+        android:showAsAction="always"    
+		/>
+</menu>
