@@ -25,13 +25,13 @@ import android.view.MenuItem;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-public class Pub extends Activity {
+public class Event extends Activity {
 
 	
 	private static final String TAG = null; 
-	private ImageView ivImgUrl; // for showing the "sektion" picture
-	private TextView tvTitle, tvSektion, tvWebUrl, tvInfo; // to show the information of the pub
-	private String title, sektion, weburl, imgurl, info; // to store the result of MySQL query after decoding JSON
+	private ImageView ivEventImgUrl; // for showing the "sektion" picture
+	private TextView tvEventTitle, tvEventPubname, tvEventDate, tvEventInfo; // to show the information of the pub
+	private String title, pubname, date, imgurl, info; // to store the result of MySQL query after decoding JSON
 
 	
 	@Override
@@ -49,16 +49,16 @@ public class Pub extends Activity {
 		// StrictMode to catch accidental disk or network access on the application's main thread
 
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.pub);
+		setContentView(R.layout.event);
 		
 		Intent sender=getIntent();
         String id = sender.getExtras().getString("id");
 
-        tvTitle 	= (TextView) findViewById(R.id.tvTitle);
-        tvSektion 	= (TextView) findViewById(R.id.tvSektion);
-        tvWebUrl 	= (TextView) findViewById(R.id.tvWebUrl);
-        ivImgUrl	= (ImageView) findViewById(R.id.ivImgUrl);
-        tvInfo 		= (TextView) findViewById(R.id.tvInfo);
+        tvEventTitle 	= (TextView) findViewById(R.id.tvEventTitle);
+        tvEventPubname 	= (TextView) findViewById(R.id.tvEventPubname);
+        tvEventDate 	= (TextView) findViewById(R.id.tvEventDate);
+        ivEventImgUrl	= (ImageView) findViewById(R.id.ivEventImgUrl);
+        tvEventInfo 	= (TextView) findViewById(R.id.tvEventInfo);
 		getInfo(id);
 		
 	}
@@ -108,7 +108,7 @@ public class Pub extends Activity {
 		try {
 			response = CustomHttpClient.executeHttpPost(
 					//"http://localhost:8888/jsonscript.php", // ip address if using localhost server
-					"http://trainwemust.com/pubapp/jsonscriptpub.php",  // in case of a remote server
+					"http://trainwemust.com/pubapp/jsonscriptevent.php",  // in case of a remote server
 					postParameters);
 
 			// store the result returned by PHP script that runs MySQL query
@@ -128,9 +128,9 @@ public class Pub extends Activity {
 					
 					//Converts json data to strings
 					title = json_data.getString("pubnamn");
-					sektion = json_data.getString("sektion");
+					pubname = json_data.getString("sektion");
 					imgurl = json_data.getString("imgurl");
-					weburl = json_data.getString("weburl");
+					date = json_data.getString("weburl");
 					info = json_data.getString("info");
 					
 				}
@@ -142,11 +142,11 @@ public class Pub extends Activity {
 			}
 
 			try{
-				tvTitle.setText(title);
-				tvSektion.setText(sektion);
-				tvWebUrl.setText(weburl);
-				ivImgUrl.setImageBitmap(getImageBitmap(imgurl));	
-				tvInfo.setText(info);
+				tvEventTitle.setText(title);
+				tvEventPubname.setText(pubname);
+				tvEventDate.setText(date);
+				ivEventImgUrl.setImageBitmap(getImageBitmap(imgurl));	
+				tvEventInfo.setText(info);
 			}
 			catch(Exception e){
 				Log.e("log_tag","Error in Display!" + e.toString());;          
