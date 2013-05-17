@@ -107,7 +107,6 @@ public class Pub extends Activity {
 		// call executeHttpPost method passing necessary parameters 
 		try {
 			response = CustomHttpClient.executeHttpPost(
-					//"http://localhost:8888/jsonscript.php", // ip address if using localhost server
 					"http://trainwemust.com/pubapp/jsonscriptpub.php",  // in case of a remote server
 					postParameters);
 
@@ -145,7 +144,7 @@ public class Pub extends Activity {
 				tvTitle.setText(title);
 				tvSektion.setText(sektion);
 				tvWebUrl.setText(weburl);
-				ivImgUrl.setImageBitmap(getImageBitmap(imgurl));	
+				ivImgUrl.setImageBitmap(ImageBitmap.getImageBitmap(imgurl));  // fetches a bitmap
 				tvInfo.setText(info);
 			}
 			catch(Exception e){
@@ -156,30 +155,5 @@ public class Pub extends Activity {
 			Log.e("log_tag","Error in http connection!!" + e.toString());     
 		}
 	}
-	
-	
-	/**
-	 * 
-	 * 	Takes an url to an image and returns the bitmap object.
-	 * 
-	 * @param  url 	the url adress for the picture
-	 * @return      the Bitmap of the specified URL
-	 * @see         Image
-	 */
-    private Bitmap getImageBitmap(String url) {
-        Bitmap bm = null;
-        try {
-            URL aURL = new URL(url);
-            URLConnection conn = aURL.openConnection();
-            conn.connect();
-            InputStream is = conn.getInputStream();
-            BufferedInputStream bis = new BufferedInputStream(is);
-            bm = BitmapFactory.decodeStream(bis);
-            bis.close();
-            is.close();
-       } catch (IOException e) {
-           Log.e(TAG, "Error getting bitmap", e);
-       }
-       return bm;
-    } 
+
 }

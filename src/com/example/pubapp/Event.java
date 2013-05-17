@@ -30,9 +30,8 @@ public class Event extends Activity {
 	
 	private static final String TAG = null; 
 	private ImageView ivEventImgUrl; // for showing the "sektion" picture
-	private TextView tvEventTitle, tvEventPubname, tvEventDate, tvEventInfo; // to show the information of the pub
-	private String title, pubname, date, imgurl, info; // to store the result of MySQL query after decoding JSON
-
+	private TextView tvEventTitle, tvEventPubname, tvEventDate, tvEventInfo, tvEventTid; // to show the information of the pub
+	private String pubName, eventName, eventInfo, eventStart, eventEnd, eventDateStart; // to store the result of MySQL query after decoding JSON
 	
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
@@ -57,7 +56,8 @@ public class Event extends Activity {
         tvEventTitle 	= (TextView) findViewById(R.id.tvEventTitle);
         tvEventPubname 	= (TextView) findViewById(R.id.tvEventPubname);
         tvEventDate 	= (TextView) findViewById(R.id.tvEventDate);
-        ivEventImgUrl	= (ImageView) findViewById(R.id.ivEventImgUrl);
+        tvEventTid 		= (TextView) findViewById(R.id.tvEventTid);
+        //ivEventImgUrl	= (ImageView) findViewById(R.id.ivEventImgUrl);
         tvEventInfo 	= (TextView) findViewById(R.id.tvEventInfo);
 		getInfo(id);
 		
@@ -107,8 +107,7 @@ public class Event extends Activity {
 		// call executeHttpPost method passing necessary parameters 
 		try {
 			response = CustomHttpClient.executeHttpPost(
-					//"http://localhost:8888/jsonscript.php", // ip address if using localhost server
-					"http://trainwemust.com/pubapp/jsonscriptevent.php",  // in case of a remote server
+					"http://trainwemust.com/pubapp/jsonscriptevent.php",  // url of jsonphpscript
 					postParameters);
 
 			// store the result returned by PHP script that runs MySQL query
@@ -119,19 +118,27 @@ public class Event extends Activity {
 				for(int i=0;i<jArray.length();i++){
 					JSONObject json_data = jArray.getJSONObject(i);
 					Log.i("log_tag","id: "+json_data.getInt("id")+
-							", pubnamn: "+json_data.getString("pubnamn")+
-							", sektion: "+json_data.getString("sektion")+
-							", weburl: "+json_data.getString("weburl")+
-							", imgurl: "+json_data.getString("imgurl")+
-							", info: "+json_data.getString("info")
+							", pubName: "+json_data.getString("pubName")+
+							", eventName: "+json_data.getString("eventName")+
+							", eventInfo: "+json_data.getString("eventInfo")+
+							", eventDateStart: "+json_data.getInt("eventDateStart")+
+							", eventStart: "+json_data.getString("eventStart")+
+							", eventEnd: "+json_data.getString("eventEnd")
 							);
 					
 					//Converts json data to strings
-					title = json_data.getString("pubnamn");
-					pubname = json_data.getString("sektion");
-					imgurl = json_data.getString("imgurl");
-					date = json_data.getString("weburl");
-					info = json_data.getString("info");
+					pubName 			= json_data.getString("pubName");
+					eventName 		= json_data.getString("eventName");
+					eventInfo 		= json_data.getString("eventInfo");
+					
+					Integer datetemp= json_data.getInt("eventDateStart");
+					String eventDateStartTemp  = datetemp.toString();
+					eventDateStart = eventDateStartTemp.substring(0,3) + "-" + 
+									 eventDateStartTemp.substring(4,5) + "-" + 
+									 eventDateStartTemp.substring(6,7);
+					
+					eventStart 		= json_data.getString("eventStart");
+					eventEnd 		= json_data.getString("eventEnd");
 					
 				}
 
@@ -142,11 +149,12 @@ public class Event extends Activity {
 			}
 
 			try{
-				tvEventTitle.setText(title);
-				tvEventPubname.setText(pubname);
-				tvEventDate.setText(date);
-				ivEventImgUrl.setImageBitmap(getImageBitmap(imgurl));	
-				tvEventInfo.setText(info);
+				tvEventTitle.setText(eventName);
+				tvEventPubname.setText("Vart : " + pubName);
+				tvEventDate.setText("Datum : " + eventDateStart);
+				tvEventTid.setText("Tid: " + eventStart + "-" + eventEnd);
+				//ivEventImgUrl.setImageBitmap(ImageBitmap.getImageBitmap(imgurl)); // fetches a bitmap
+				tvEventInfo.setText("Info : " + eventInfo);
 			}
 			catch(Exception e){
 				Log.e("log_tag","Error in Display!" + e.toString());;          
@@ -156,30 +164,4 @@ public class Event extends Activity {
 			Log.e("log_tag","Error in http connection!!" + e.toString());     
 		}
 	}
-	
-	
-	/**
-	 * 
-	 * 	Takes an url to an image and returns the bitmap object.
-	 * 
-	 * @param  url 	the url adress for the picture
-	 * @return      the Bitmap of the specified URL
-	 * @see         Image
-	 */
-    private Bitmap getImageBitmap(String url) {
-        Bitmap bm = null;
-        try {
-            URL aURL = new URL(url);
-            URLConnection conn = aURL.openConnection();
-            conn.connect();
-            InputStream is = conn.getInputStream();
-            BufferedInputStream bis = new BufferedInputStream(is);
-            bm = BitmapFactory.decodeStream(bis);
-            bis.close();
-            is.close();
-       } catch (IOException e) {
-           Log.e(TAG, "Error getting bitmap", e);
-       }
-       return bm;
-    } 
 }
