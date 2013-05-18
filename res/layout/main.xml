@@ -6,18 +6,18 @@
     android:orientation="vertical" >
 
 	<TextView	
-	    android:id="@+id/tvTitle"
+	    android:id="@+id/tvMainEventTitle"
 		android:layout_width="fill_parent"
 		android:layout_height="wrap_content"
 		android:gravity="center"/>
 	
 	<TextView 
-		android:id="@+id/tvEventPubname"
+		android:id="@+id/tvMainEventPubname"
 		android:layout_width="fill_parent"
 		android:layout_height="wrap_content"
 		/>
 	<TextView
-		android:id="@+id/tvEventDate"
+		android:id="@+id/tvMainEventDate"
 		android:layout_width="fill_parent"
 		android:layout_height="wrap_content"
 		/>
