@@ -1,0 +1,292 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+    
+    <ScrollView
+        android:id="@+id/scrollView1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical" >
+			
+            <TextView 
+                android:id="@+id/tvElvan"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:text="11:an"
+                />
+            
+            <Button
+                android:id="@+id/bElvan"
+                android:layout_width="fill_parent"
+                android:layout_height="75dp"
+                android:text="11:an" 
+                style="@style/elvan"
+                android:layout_marginLeft="2dp"
+                android:layout_marginRight="2dp"/>
+            
+            <TextView 
+                android:id="@+id/tvD"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:text="Datateknik"/>
+            
+            <Button
+                android:id="@+id/bBasen"
+                android:layout_width="fill_parent"
+                android:layout_height="75dp"
+                android:text="Basen"
+                style="@style/basen"
+                android:layout_marginLeft="2dp"
+                android:layout_marginRight="2dp" />
+            
+            <TextView 
+                android:id="@+id/tvM"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:text="Maskinteknik"/>
+            
+            <Button
+                android:id="@+id/bBulten"
+                android:layout_width="fill_parent"
+                android:layout_height="75dp"
+                android:text="Bulten" 
+                style="@style/bulten"
+                android:layout_marginLeft="2dp"
+                android:layout_marginRight="2dp"/>
+            
+            <TextView 
+                android:id="@+id/tvCIF"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:text="Chalmers Ingenjörs Förening"/>
+            
+            <Button
+                android:id="@+id/bClubAvancez"
+                android:layout_width="fill_parent"
+                android:layout_height="75dp"
+                android:text="Club Avancez" 
+                style="@style/clubA"
+                android:layout_marginLeft="2dp"
+                android:layout_marginRight="2dp"/>
+            
+            <TextView 
+                android:id="@+id/tvF"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:text="Fysik"/>
+            
+            <Button
+                android:id="@+id/bFocus"
+                android:layout_width="fill_parent"
+                android:layout_height="75dp"
+                android:text="Focus" 
+                style="@style/focus"
+                android:layout_marginLeft="2dp"
+                android:layout_marginRight="2dp"/>
+            
+            <TextView 
+                android:id="@+id/tvK"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:text="Kemiteknik"/>
+            
+            <Button
+                android:id="@+id/bFortNox"
+                android:layout_width="fill_parent"
+                android:layout_height="75dp"
+                android:text="FortNOx" 
+                style="@style/fortnox"
+                android:layout_marginLeft="2dp"
+                android:layout_marginRight="2dp"/>
+            
+            <TextView 
+                android:id="@+id/tvKaren"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:text="Kårens Egna Pub"
+                />
+            
+            <Button
+                android:id="@+id/bGasquen"
+                android:layout_width="fill_parent"
+                android:layout_height="75dp"
+                android:text="Gasquen"
+                style="@style/gasqueen"
+                android:layout_marginLeft="2dp"
+                android:layout_marginRight="2dp" />
+            
+            <TextView 
+                android:id="@+id/tvKF"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:text="KemiFysik"/>
+            
+            <Button
+                android:id="@+id/bGasTown"
+                android:layout_width="fill_parent"
+                android:layout_height="75dp"
+                android:text="GasTown" 
+                style="@style/gastown"
+                android:layout_marginLeft="2dp"
+                android:layout_marginRight="2dp"/>
+            
+            <TextView 
+                android:id="@+id/tvI"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:text="Industriell Eknomi"/>
+            
+            <Button
+                android:id="@+id/bGoldenI"
+                android:layout_width="fill_parent"
+                android:layout_height="75dp"
+                android:text="Golden I"
+                style="@style/goldeni"
+                android:layout_marginLeft="2dp"
+                android:layout_marginRight="2dp"/>
+
+            <TextView 
+                android:id="@+id/tvIT"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:text="Informationteknik"/>
+            
+            <Button
+                android:id="@+id/bIT"
+                android:layout_width="fill_parent"
+                android:layout_height="75dp"
+                android:text="Hubben" 
+                style="@style/huben"
+                android:layout_marginLeft="2dp"
+                android:layout_marginRight="2dp"/>
+            
+            <TextView 
+                android:id="@+id/tvJAPripps"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:text="Chalmers Kårens"/>
+            
+            <Button
+                android:id="@+id/bJAPripps"
+                android:layout_width="fill_parent"
+                android:layout_height="75dp"
+                android:text="J.A. Pripps"
+                style="@style/japripps"
+                android:layout_marginLeft="2dp"
+                android:layout_marginRight="2dp" />
+            
+            <TextView 
+                android:id="@+id/tvTD"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:text="Tekniskdesign"/>
+            
+            <Button
+                android:id="@+id/bJarvagspub"
+                android:layout_width="fill_parent"
+                android:layout_height="75dp"
+                android:text="Järnvägspub"
+                style="@style/jarnvag"
+                android:layout_marginLeft="2dp"
+                android:layout_marginRight="2dp"  />
+            
+            <TextView 
+                android:id="@+id/tvE"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:text="Elektroteknik"/>
+            
+            <Button
+                android:id="@+id/bKajsabaren"
+                android:layout_width="fill_parent"
+                android:layout_height="75dp"
+                android:text="Kajsabaren"
+                style="@style/kajsabaren"
+                android:layout_marginLeft="2dp"
+                android:layout_marginRight="2dp" />
+            
+            <TextView 
+                android:id="@+id/tvSjo"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:text="Sjöfart"/>
+            
+            <Button
+                android:id="@+id/bPubP"
+                android:layout_width="fill_parent"
+                android:layout_height="75dp"
+                android:text="PubP" 
+                style="@style/pubp"
+                android:layout_marginLeft="2dp"
+                android:layout_marginRight="2dp"/>
+            
+            <TextView 
+                android:id="@+id/tvA"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:text="Arkitektur"/>
+            
+            <Button
+                android:id="@+id/bRodaRummet"
+                android:layout_width="fill_parent"
+                android:layout_height="75dp"
+                android:text="Röda Rummet"
+                style="@style/rodarummet"
+                android:layout_marginLeft="2dp"
+                android:layout_marginRight="2dp" />
+            
+            <TextView 
+                android:id="@+id/tvVV"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:text="Väg och vatten"/>
+            
+            <Button
+                android:id="@+id/bSigurd"
+                android:layout_width="fill_parent"
+                android:layout_height="75dp"
+                android:text="Sigurd" 
+                style="@style/sigurd"
+                android:layout_marginLeft="2dp"
+                android:layout_marginRight="2dp"/>
+            
+            <TextView 
+                android:id="@+id/tvMwinden"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:text="Maskinteknik"/>
+            
+            <Button
+                android:id="@+id/bWinden"
+                android:layout_width="fill_parent"
+                android:layout_height="75dp"
+                android:text="Winden"
+                style="@style/winden"
+                android:layout_marginLeft="2dp"
+                android:layout_marginRight="2dp" />
+				
+            <TextView 
+                android:id="@+id/tvZ"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:text="Automation och mekatronik"/>
+            
+            <Button
+                android:id="@+id/bZaloonen"
+                android:layout_width="fill_parent"
+                android:layout_height="75dp"
+                android:text="Zaloonen"
+                style="@style/zaloonen"
+                android:layout_marginLeft="2dp"
+                android:layout_marginRight="2dp" />
+        </LinearLayout>
+    </ScrollView>
+    
+
+</LinearLayout>

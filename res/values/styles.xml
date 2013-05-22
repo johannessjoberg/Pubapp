@@ -16,5 +16,128 @@
     <style name="AppTheme" parent="AppBaseTheme">
         <!-- All customizations that are NOT specific to a particular API-level can go here. -->
     </style>
+    
+    <style name="elvan" >
+        <item name="android:background">@drawable/elvan</item>
+        <item name="android:textColor">#FFF</item>
+        <item name="android:textSize">26sp</item>
+    </style>
+    
+    <style name="basen" >
+        <item name="android:background">@drawable/basen</item>
+        <item name="android:textColor">#FFF</item>
+        <item name="android:textSize">26sp</item>
+    </style>
+    
+    <style name="bulten" >
+        <item name="android:background">@drawable/bulten</item>
+        <item name="android:textColor">#FFF</item>
+        <item name="android:textSize">26sp</item>
+    </style>
+    
+    <style name="clubA" >
+        <item name="android:background">@drawable/cluba</item>
+        <item name="android:textColor">#FFF</item>
+        <item name="android:textSize">26sp</item>
+    </style>
+    
+    <style name="focus" >
+        <item name="android:background">@drawable/focus</item>
+        <item name="android:textColor">#FFF</item>
+        <item name="android:textSize">26sp</item>
+    </style>
+    
+    <style name="fortnox" >
+        <item name="android:background">@drawable/fortnox</item>
+        <item name="android:textColor">#FFF</item>
+        <item name="android:textSize">26sp</item>
+    </style>
+    
+    <style name="gasqueen" >
+        <item name="android:background">@drawable/gasqueen</item>
+        <item name="android:textColor">#FFF</item>
+        <item name="android:textSize">26sp</item>
+    </style>
+    
+    <style name="gastown" >
+        <item name="android:background">@drawable/gastown</item>
+        <item name="android:textColor">#FFF</item>
+        <item name="android:textSize">26sp</item>
+    </style>
+    
+     <style name="goldeni" >
+        <item name="android:background">@drawable/goldeni</item>
+        <item name="android:textColor">#FFF</item>
+        <item name="android:textSize">26sp</item>
+    </style>
+    
+     <style name="huben" >
+        <item name="android:background">@drawable/huben</item>
+        <item name="android:textColor">#FFF</item>
+        <item name="android:textSize">26sp</item>
+    </style>
+    
+      <style name="japripps" >
+        <item name="android:background">@drawable/japripps</item>
+        <item name="android:textColor">#FFF</item>
+        <item name="android:textSize">26sp</item>
+    </style>
+    
+   	<style name="jarnvag" >
+        <item name="android:background">@drawable/jarnvag</item>
+        <item name="android:textColor">#FFF</item>
+        <item name="android:textSize">26sp</item>
+    </style>
 
+   	<style name="kajsabaren" >
+        <item name="android:background">@drawable/kajsabaren</item>
+        <item name="android:textColor">#FFF</item>
+        <item name="android:textSize">26sp</item>
+    </style>
+    
+    <style name="pubp" >
+        <item name="android:background">@drawable/pubp</item>
+        <item name="android:textColor">#FFF</item>
+        <item name="android:textSize">26sp</item>
+    </style>
+    
+    <style name="rodarummet" >
+        <item name="android:background">@drawable/rodarummet</item>
+        <item name="android:textColor">#FFF</item>
+        <item name="android:textSize">26sp</item>
+    </style>
+    
+    <style name="sigurd" >
+        <item name="android:background">@drawable/sigurd</item>
+        <item name="android:textColor">#FFF</item>
+        <item name="android:textSize">26sp</item>
+    </style>
+    
+    <style name="winden" >
+        <item name="android:background">@drawable/winden</item>
+        <item name="android:textColor">#FFF</item>
+        <item name="android:textSize">26sp</item>
+    </style>
+    
+    <style name="zaloonen" >
+        <item name="android:background">@drawable/zaloonen</item>
+        <item name="android:textColor">#FFF</item>
+        <item name="android:textSize">26sp</item>
+    </style>
+    
+    <style name="tvTitle" >
+        <item name="android:textSize">30sp</item>
+    </style>
+    
+    <style name="tvSektion" >
+        <item name="android:textSize">20sp</item>
+    </style>
+    
+    <style name="tvWebUrl" >
+        <item name="android:textSize">17sp</item>
+    </style>
+    
+    <style name="tvInfo" >
+        <item name="android:textSize">17sp</item>
+    </style>
 </resources>
