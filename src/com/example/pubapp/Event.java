@@ -51,7 +51,7 @@ public class Event extends Activity {
 		setContentView(R.layout.event);
 		
 		Intent sender=getIntent();
-        String id = sender.getExtras().getString("id");
+        String id = Integer.toString(sender.getExtras().getInt("id"));
 
         tvEventTitle 	= (TextView) findViewById(R.id.tvEventTitle);
         tvEventPubname 	= (TextView) findViewById(R.id.tvEventPubname);
@@ -121,7 +121,7 @@ public class Event extends Activity {
 							", pubName: "+json_data.getString("pubName")+
 							", eventName: "+json_data.getString("eventName")+
 							", eventInfo: "+json_data.getString("eventInfo")+
-							", eventDateStart: "+json_data.getInt("eventDateStart")+
+							", eventDateStart: "+json_data.getString("eventDateStart")+
 							", eventStart: "+json_data.getString("eventStart")+
 							", eventEnd: "+json_data.getString("eventEnd")
 							);
@@ -130,13 +130,7 @@ public class Event extends Activity {
 					pubName 			= json_data.getString("pubName");
 					eventName 		= json_data.getString("eventName");
 					eventInfo 		= json_data.getString("eventInfo");
-					
-					Integer datetemp= json_data.getInt("eventDateStart");
-					String eventDateStartTemp  = datetemp.toString();
-					eventDateStart = eventDateStartTemp.substring(0,3) + "-" + 
-									 eventDateStartTemp.substring(4,5) + "-" + 
-									 eventDateStartTemp.substring(6,7);
-					
+					eventDateStart 		= json_data.getString("eventDateStart");
 					eventStart 		= json_data.getString("eventStart");
 					eventEnd 		= json_data.getString("eventEnd");
 					
