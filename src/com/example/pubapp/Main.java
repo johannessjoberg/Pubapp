@@ -72,7 +72,7 @@ public class Main extends Activity {
 	     tvMainEventDate 	= (TextView) findViewById(R.id.tvMainEventDate);
 		 */ 
 	     getInfo("bajs");
-	     createTableRowButton(addDynamicButton(1, Kalender.class, "GŒ till kaleneder fšr fler events"));
+	     createTableRowButton(addDynamicButton(1, Kalender.class, "GŒ till kalender fšr fler events"));
 	     
 	     
 	}
@@ -138,10 +138,10 @@ public class Main extends Activity {
 					String tempEventDateStart = json_data.getString("eventDateStart");
 					if (!(eventDateStart.equals(tempEventDateStart))) {
 						eventDateStart = tempEventDateStart;
-						createTableRowDate(addDynamicTextView(eventDateStart));
+						createTableRowDate(addDynamicTextView(eventDateStart, 10));
 					}
 					
-					createTableRowEvent(addDynamicTextView(eventName),addDynamicTextView(pubName),addDynamicButton(id, Event.class, "Visa"));
+					createTableRowEvent(addDynamicTextView(eventName, 20),addDynamicTextView(pubName, 12),addDynamicButton(id, Event.class, "Visa"));
 					
 				}	
 			}
@@ -166,6 +166,15 @@ public class Main extends Activity {
 		}
 	}
 	
+	/**
+	 * 
+	 * Creates a button with a listener to a specific class.
+	 * 
+	 * @param  id		Id to send extra with the intent
+	 * @param  goClass	Target class for the intent
+	 * @param  text		The string displayed in the Button
+	 * @return TextView
+	 */
 	private Button addDynamicButton(final int id, final Class goClass, String text) {
 		// creates a button dynamically
         Button btn = new Button(this);
@@ -184,22 +193,39 @@ public class Main extends Activity {
 		return btn;
     }
 	
-	private TextView addDynamicTextView(String text) {
+	/**
+	 * 
+	 * Takes a String and max length and puts it in a TextView
+	 * 
+	 * @param  text		The string displayed in the TextView
+	 * @param  max		Max length that will fit in the TextView
+	 * @return TextView
+	 */
+	private TextView addDynamicTextView(String text, int max) {
 		// creates a button dynamically
         TextView tv = new TextView(this);
-        int maxLength = 20;
         InputFilter[] fArray = new InputFilter[1];
-        fArray[0] = new InputFilter.LengthFilter(maxLength);
+        fArray[0] = new InputFilter.LengthFilter(max);
         tv.setFilters(fArray);
-        if (text.length() > 20) {
-            text = text.substring(0, 16);
+        
+        if (text.length() > max) {
+            text = text.substring(0, (max-4));
             text += "...";	
         }
+        
         tv.setText(text);
         return tv;
-        // retrieve a reference to the container layout
     }
-
+	
+	/**
+	 * 
+	 * Creates a row with three cells, with a TextView in each cell.
+	 * 
+	 * @param  left		TextView to the left
+	 * @param  center	TextView in the center
+	 * @param  right	TextView to the right
+	 * @return 
+	 */
 	public void createTableRowEvent(TextView left, TextView center, TextView right) {
 		  TableLayout tl = (TableLayout) findViewById(R.id.mainTableLayout);
 		  TableRow tr = new TableRow(this);
@@ -214,6 +240,13 @@ public class Main extends Activity {
 		  tl.addView(tr, new TableLayout.LayoutParams(LayoutParams.FILL_PARENT, LayoutParams.WRAP_CONTENT));
 		}
 	
+	/**
+	 * 
+	 * Creates a row that spans over 3 cells and shows a date.
+	 * 
+	 * @param  date		TextView with a date
+	 * @return 
+	 */
 	public void createTableRowDate(TextView date) {
 		  TableLayout tl = (TableLayout) findViewById(R.id.mainTableLayout);
 		  TableRow tr = new TableRow(this);
@@ -227,15 +260,22 @@ public class Main extends Activity {
 		  tl.addView(tr);
 		}
 	
-	public void createTableRowButton(Button date) {
+	/**
+	 * 
+	 * Creates a row that spans over 3 cells and shows a button.
+	 * 
+	 * @param  btn		Button
+	 * @return 
+	 */
+	public void createTableRowButton(Button btn) {
 		  TableLayout tl = (TableLayout) findViewById(R.id.mainTableLayout);
 		  TableRow tr = new TableRow(this);
 		  TableRow.LayoutParams lp = new TableRow.LayoutParams(LayoutParams.FILL_PARENT, LayoutParams.WRAP_CONTENT);
 		  lp.setMargins(0,30,0,0);
 		  lp.span = 3;
-		  date.setTextSize(18);
-		  date.setTypeface(null, Typeface.BOLD_ITALIC);
-		  tr.addView(date, lp);
+		  btn.setTextSize(18);
+		  btn.setTypeface(null, Typeface.BOLD_ITALIC);
+		  tr.addView(btn, lp);
 
 		  tl.addView(tr);
 		}
