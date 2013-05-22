@@ -1,7 +1,5 @@
 package com.example.pubapp;
 
-
-
 import java.util.ArrayList;
 
 import org.apache.http.NameValuePair;
@@ -35,11 +33,8 @@ import android.widget.Toast;
 
 public class Main extends Activity {
 
-	private TextView tvMainEventTitle, tvMainEventPubname, tvMainEventDate; // to show the information of the pub
 	private String pubName, eventName, eventDateStart = ""; // to store the result of MySQL query after decoding JSON
 	private int id;
-	
-	
 	
 	private static class MainHolder{
 		private static final Main INSTANCE = new Main();
@@ -67,14 +62,8 @@ public class Main extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.main);
 		
-		 /*tvMainEventTitle 	= (TextView) findViewById(R.id.tvMainEventTitle);
-	     tvMainEventPubname 	= (TextView) findViewById(R.id.tvMainEventPubname);
-	     tvMainEventDate 	= (TextView) findViewById(R.id.tvMainEventDate);
-		 */ 
-	     getInfo("bajs");
-	     createTableRowButton(addDynamicButton(1, Kalender.class, "Gå till kalender för fler events"));
-	     
-	     
+		createContent();
+	    
 	}
 	
 	@Override
@@ -101,7 +90,25 @@ public class Main extends Activity {
 	            return super.onOptionsItemSelected(item);
 	    }
 	}
-
+	
+	/**
+	 * 
+	 * Creates all content using different functions.
+	 * 
+	 * @param  
+	 * @return 
+	 */
+	public void createContent() {
+		
+		getInfo("bajs");// hämtar all eventsinfo
+	    
+	    Button btn = addDynamicButton(1, Kalender.class, "Gå till kalender för fler events");
+		btn.setTextSize(18);
+		btn.setTypeface(null, Typeface.BOLD_ITALIC);
+	    createTableRowButton(btn);
+	    // lägger till en knapp till kalendern längst ned
+		
+	}
 	
 	public void getInfo(String urlId) {
 		// declare parameters that are passed to PHP script i.e. the id "id" and its value submitted by the app   
@@ -136,11 +143,12 @@ public class Main extends Activity {
 					id = json_data.getInt("id");
 					
 					String tempEventDateStart = json_data.getString("eventDateStart");
-					if (!(eventDateStart.equals(tempEventDateStart))) {
+					if (!(eventDateStart.equals(tempEventDateStart))) { // makes sure date only shows once
 						eventDateStart = tempEventDateStart;
 						createTableRowDate(addDynamicTextView(eventDateStart, 10));
 					}
 					
+					// creates an event-row with title, pubname and button
 					createTableRowEvent(addDynamicTextView(eventName, 20),addDynamicTextView(pubName, 12),addDynamicButton(id, Event.class, "Visa"));
 					
 				}	
@@ -152,14 +160,6 @@ public class Main extends Activity {
 				Log.e("log_tag", "Failed data was:\n" + result);
 			}
 
-			/*try{
-				tvMainEventTitle.setText(eventName);
-				tvMainEventPubname.setText("Vart : " + pubName);
-				tvMainEventDate.setText("Datum : " + eventDateStart);
-			}
-			catch(Exception e){
-				Log.e("log_tag","Error in Display!" + e.toString());;          
-			}   */
 		}
 		catch (Exception e) {
 			Log.e("log_tag","Error in http connection!!" + e.toString());     
@@ -273,8 +273,6 @@ public class Main extends Activity {
 		  TableRow.LayoutParams lp = new TableRow.LayoutParams(LayoutParams.FILL_PARENT, LayoutParams.WRAP_CONTENT);
 		  lp.setMargins(0,30,0,0);
 		  lp.span = 3;
-		  btn.setTextSize(18);
-		  btn.setTypeface(null, Typeface.BOLD_ITALIC);
 		  tr.addView(btn, lp);
 
 		  tl.addView(tr);
