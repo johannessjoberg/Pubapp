@@ -8,11 +8,18 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import android.graphics.PorterDuff.Mode;
 import android.os.Bundle;
 import android.os.StrictMode;
 import android.app.ActionBar.LayoutParams;
 import android.app.Activity;
 import android.content.Intent;
+import android.content.res.Resources;
+import android.graphics.Color;
+import android.graphics.ColorFilter;
+import android.graphics.LightingColorFilter;
+import android.graphics.PorterDuff;
+import android.graphics.PorterDuffColorFilter;
 import android.graphics.Typeface;
 import android.text.InputFilter;
 import android.text.TextUtils;
@@ -35,6 +42,7 @@ public class Main extends Activity {
 
 	private String pubName, eventName, eventDateStart = ""; // to store the result of MySQL query after decoding JSON
 	private int id;
+	private boolean flag = true;
 	
 	private static class MainHolder{
 		private static final Main INSTANCE = new Main();
@@ -100,72 +108,56 @@ public class Main extends Activity {
 	 */
 	public void createContent() {
 		
-		getInfo("bajs");// hämtar all eventsinfo
-	    
+		JSONArray content = CustomHttpClient.getJSON("1", "http://trainwemust.com/pubapp/jsonnewsfeed.php");
+		// fetches a JSONArray from the MySQL database through a PhP-script
+	    displayJSONContent(content);
+		
 	    Button btn = addDynamicButton(1, Kalender.class, "Gå till kalender för fler events");
 		btn.setTextSize(18);
 		btn.setTypeface(null, Typeface.BOLD_ITALIC);
 	    createTableRowButton(btn);
-	    // lägger till en knapp till kalendern längst ned
+	    // adds a button to the calendar at the bottom
 		
 	}
 	
-	public void getInfo(String urlId) {
-		// declare parameters that are passed to PHP script i.e. the id "id" and its value submitted by the app   
-		ArrayList<NameValuePair> postParameters = new ArrayList<NameValuePair>();
-
-		// define the parameter
-		postParameters.add(new BasicNameValuePair("id",urlId));
-		String response = null;
-
-		// call executeHttpPost method passing necessary parameters 
-		try {
-			response = CustomHttpClient.executeHttpPost(
-					"http://trainwemust.com/pubapp/jsonnewsfeed.php",  // in case of a remote server
-					postParameters);
-
-
-			// store the result returned by PHP script that runs MySQL query
-			String result = response.toString();       
-			//parse json data
-			try{
-				JSONArray jArray = new JSONArray(result);
-				for(int i=0;i<jArray.length();i++) {
-					JSONObject json_data = jArray.getJSONObject(i);
-					Log.i("log_tag","eventName: "+json_data.getString("eventName")+
-							", pubName: "+json_data.getString("pubName")+
-							", eventDateStart: "+json_data.getString("eventDateStart")+
-							", id: "+json_data.getInt("id")
-							);
-					
-					pubName 	= json_data.getString("pubName");
-					eventName 	= json_data.getString("eventName");
-					id = json_data.getInt("id");
-					
-					String tempEventDateStart = json_data.getString("eventDateStart");
-					if (!(eventDateStart.equals(tempEventDateStart))) { // makes sure date only shows once
-						eventDateStart = tempEventDateStart;
-						createTableRowDate(addDynamicTextView(eventDateStart, 10));
-					}
-					
-					// creates an event-row with title, pubname and button
-					createTableRowEvent(addDynamicTextView(eventName, 20),addDynamicTextView(pubName, 12),addDynamicButton(id, Event.class, "Visa"));
-					
-				}	
-			}
-			
+	/**
+	 * 
+	 * Takes a JSONArray and displays its content.
+	 * 
+	 * @param  jArray
+	 * @return 
+	 */	
+	public void displayJSONContent(JSONArray jArray) {
+		try{
+			for(int i=0;i<jArray.length();i++) {
+				JSONObject json_data = jArray.getJSONObject(i);
+				Log.i("log_tag","eventName: "+json_data.getString("eventName")+
+						", pubName: "+json_data.getString("pubName")+
+						", eventDateStart: "+json_data.getString("eventDateStart")+
+						", id: "+json_data.getInt("id")
+						);
 				
-			catch(JSONException e){
-				Log.e("log_tag", "Error parsing data "+e.toString());
-				Log.e("log_tag", "Failed data was:\n" + result);
-			}
+				pubName 	= json_data.getString("pubName");
+				eventName 	= json_data.getString("eventName");
+				id = json_data.getInt("id");
+				
+				String tempEventDateStart = json_data.getString("eventDateStart");
+				if (!(eventDateStart.equals(tempEventDateStart))) { // makes sure date only shows once
+					eventDateStart = tempEventDateStart;
+					createTableRowDate(addDynamicTextView(eventDateStart, 10));
+				}
+				
+				// creates an event-row with title, pubname and button
+				createTableRowEvent(addDynamicTextView(eventName, 20),addDynamicTextView(pubName, 12),addDynamicButton(id, Event.class, "Visa"));
+				
+			}	
+		}
+		catch(JSONException e){
+			Log.e("log_tag", "Error parsing data "+e.toString());
+		}
 
-		}
-		catch (Exception e) {
-			Log.e("log_tag","Error in http connection!!" + e.toString());     
-		}
 	}
-	
+
 	/**
 	 * 
 	 * Creates a button with a listener to a specific class.
@@ -173,15 +165,15 @@ public class Main extends Activity {
 	 * @param  id		Id to send extra with the intent
 	 * @param  goClass	Target class for the intent
 	 * @param  text		The string displayed in the Button
-	 * @return TextView
+	 * @return Button
 	 */
-	private Button addDynamicButton(final int id, final Class goClass, String text) {
+	private Button addDynamicButton(final int id, final Class<?> goClass, String text) {
 		// creates a button dynamically
         Button btn = new Button(this);
         // sets button properties
         btn.setText(text);
+        btn.getBackground().setColorFilter(Color.parseColor("#75E781"), PorterDuff.Mode.DARKEN);
 		btn.setOnClickListener(new OnClickListener() {
-			
 			@Override
 			public void onClick(View v) {
 				Intent intent = new Intent(v.getContext(), goClass);
@@ -236,6 +228,14 @@ public class Main extends Activity {
 		  tr.addView(left);
 		  tr.addView(center);
 		  tr.addView(right);
+		  if (flag) {
+			  tr.setBackgroundColor(Color.parseColor("#FFFFFF"));
+			  flag = false;
+		  }
+		  else {
+			  tr.setBackgroundColor(Color.parseColor("#E9E9E9"));
+			  flag = true;
+		  }
 
 		  tl.addView(tr, new TableLayout.LayoutParams(LayoutParams.FILL_PARENT, LayoutParams.WRAP_CONTENT));
 		}
