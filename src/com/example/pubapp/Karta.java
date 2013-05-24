@@ -36,7 +36,6 @@ public class Karta extends Activity implements LocationListener, LocationSource{
 	private double lat, lng;
 	private OnLocationChangedListener mListener;
 	private LocationManager locationManager;
-	
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -122,10 +121,10 @@ public class Karta extends Activity implements LocationListener, LocationSource{
 	    if( mListener != null ){
 	        mListener.onLocationChanged(location);
 	        
-	        LatLngBounds bounds = this.mMap.getProjection().getVisibleRegion().latLngBounds; //ändra så att chalmers alltid är låst
+	        LatLngBounds bounds = this.mMap.getProjection().getVisibleRegion().latLngBounds; //TODO ändra så att chalmers alltid är låst
 	        
 	        if(!bounds.contains(new LatLng(location.getLatitude(), location.getLongitude()))){
-	             //Move the camera to the user's location if they are off-screen!
+	             //Move the camera to the user's location if they are not on a chalmers campus!
 	             mMap.animateCamera(CameraUpdateFactory.newLatLng(new LatLng(location.getLatitude(), location.getLongitude())));
 	        }
 	    }
@@ -133,7 +132,7 @@ public class Karta extends Activity implements LocationListener, LocationSource{
 	
 	//Initially sets the map to Chalmers
 	private void setLocation() {
-        CameraPosition cameraPosition = new CameraPosition.Builder() //fixa så att cameran antingen låser över lindholmen eller chalmers beroende på postition
+        CameraPosition cameraPosition = new CameraPosition.Builder() //TODO fixa så att cameran antingen låser över lindholmen eller chalmers beroende på postition
 				.target(new LatLng(57.68806, 11.977978)).zoom(15).build();
 		mMap.moveCamera(CameraUpdateFactory
 				.newCameraPosition(cameraPosition));
@@ -211,36 +210,27 @@ public class Karta extends Activity implements LocationListener, LocationSource{
 	}
 
 	@Override
-	public void onProviderDisabled(String provider) 
-	{
+	public void onProviderDisabled(String provider){
 	    // TODO Auto-generated method stub
-	    Toast.makeText(this, "provider disabled", Toast.LENGTH_SHORT).show();
 	}
 
 	@Override
-	public void onProviderEnabled(String provider) 
-	{
-	    // TODO Auto-generated method stub
-	    Toast.makeText(this, "provider enabled", Toast.LENGTH_SHORT).show();
+	public void onProviderEnabled(String provider){
+		// TODO Auto-generated method stub
 	}
 
 	@Override
-	public void onStatusChanged(String provider, int status, Bundle extras) 
-	{
+	public void onStatusChanged(String provider, int status, Bundle extras){
 	    // TODO Auto-generated method stub
-	    Toast.makeText(this, "status changed", Toast.LENGTH_SHORT).show();
 	}
 
 	@Override
-	public void activate(OnLocationChangedListener listener) 
-	{
+	public void activate(OnLocationChangedListener listener){
 	    mListener = listener;
 	}
 
 	@Override
-	public void deactivate() 
-	{
+	public void deactivate(){
 	    mListener = null;
 	}
-
 }
