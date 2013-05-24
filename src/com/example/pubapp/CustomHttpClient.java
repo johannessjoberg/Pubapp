@@ -52,17 +52,12 @@ public class CustomHttpClient {
 
 
 			// store the result returned by PHP script that runs MySQL query
-			String result = response.toString();
-			if (result.trim().equals("null")) {
-				JSONContent = new JSONArray();
-			}
-			else {
-				JSONContent = new JSONArray(result);	
-			}
+			String result = response.toString(); 
+			JSONContent = new JSONArray(result);
+			//parse json data
 		}
 		catch (Exception e) {
-			Log.e("log_tag","Error in http connection!!" + e.toString());
-			return null;
+			Log.e("log_tag","Error in http connection!!" + e.toString());     
 		}
 		return JSONContent;
 	}
