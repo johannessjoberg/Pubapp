@@ -73,6 +73,7 @@ public class Pub extends Activity {
 
 		Intent sender = getIntent();
 		id = Integer.toString(sender.getExtras().getInt("id"));
+
 		createContent();
 
 	}

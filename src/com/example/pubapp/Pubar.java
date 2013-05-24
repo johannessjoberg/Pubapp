@@ -71,10 +71,11 @@ public class Pubar extends Activity {
 
 	/**
 	 * 
-	 * Creates all content using different functions.
+	 * Creates all content using different functions. 
+	 * @param 
 	 * 
-	 * @param
 	 * @return
+	 * 
 	 */
 	private void createContent() {
 		JSONArray content = CustomHttpClient.getJSON("1",
@@ -84,36 +85,36 @@ public class Pubar extends Activity {
 	}
 
 	private void displayJSONContent(JSONArray jArray) {
-		try{
-			for(int i=0; i < jArray.length(); i++){
+		try {
+			for (int i = 0; i < jArray.length(); i++) {
 				JSONObject json_data = jArray.getJSONObject(i);
-				Log.i("log_tag","id: "+	json_data.getInt("id")+
-						", pubName: "+	json_data.getString("pubName")+
-						", sektion: "+	json_data.getString("sektion")+
-						", info: "	+	json_data.getString("info")+
-						", weburl: "+	json_data.getString("weburl")+
-						", imgurl: "+	json_data.getString("imgurl")+
-						", lat: "	+	json_data.getDouble("lat")+
-						", lng: "	+	json_data.getDouble("lng")+
-						", colorCode: "	+	json_data.getString("colorCode")
-						);
-				
-				pubId 		= json_data.getInt("id");
-				pubName 	= json_data.getString("pubName");
-				sektion 	= json_data.getString("sektion");
-				colorCode	= json_data.getString("colorCode");
-				
+				Log.i("log_tag", "id: " + json_data.getInt("id")
+						+ ", pubName: " + json_data.getString("pubName")
+						+ ", sektion: " + json_data.getString("sektion")
+						+ ", info: " + json_data.getString("info")
+						+ ", weburl: " + json_data.getString("weburl")
+						+ ", imgurl: " + json_data.getString("imgurl")
+						+ ", lat: " + json_data.getDouble("lat") + ", lng: "
+						+ json_data.getDouble("lng") + ", colorCode: "
+						+ json_data.getString("colorCode"));
+
+				pubId = json_data.getInt("id");
+				pubName = json_data.getString("pubName");
+				sektion = json_data.getString("sektion");
+				colorCode = json_data.getString("colorCode");
+
 				colorCode.toUpperCase();
 				TextView tv = addDynamicTextView(sektion, 20);
-				Button bt 	= addDynamicButton(pubId, Pub.class, pubName, colorCode);
-				
+				Button bt = addDynamicButton(pubId, Pub.class, pubName,
+						colorCode);
+
 				LinearLayout llinner = (LinearLayout) findViewById(R.id.llinner);
 				llinner.addView(tv);
 				llinner.addView(bt);
+
 			}
-		}
-		catch(JSONException e){
-			Log.e("log_tag", "Error parsing data "+e.toString());
+		} catch (JSONException e) {
+			Log.e("log_tag", "Error parsing data " + e.toString());
 		}
 
 	}
@@ -163,19 +164,23 @@ public class Pubar extends Activity {
 		// sets button properties
 		btn.setHeight(0);
 		btn.setText(text);
-		//btn.setBackgroundResource(R.drawable.green_button);
+		// btn.setBackgroundResource(R.drawable.green_button);
 		// btn.setPadding(15, 15, 15, 15);
-		btn.getBackground().setColorFilter(Color.parseColor(color), PorterDuff.Mode.OVERLAY);
+		btn.getBackground().setColorFilter(Color.parseColor(color),
+				PorterDuff.Mode.OVERLAY);
 		btn.setOnClickListener(new OnClickListener() {
+
 			@Override
 			public void onClick(View v) {
 				Intent intent = new Intent(v.getContext(), goClass);
 				intent.putExtra("id", id);
+
 				startActivity(intent);
 			}
 		});
 
 		return btn;
+
 	}
 
 }
