@@ -23,9 +23,14 @@ import android.os.StrictMode;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.AdapterView.OnItemSelectedListener;
+import android.widget.Toast;
 
 public class Pub extends Activity {
 
@@ -45,6 +50,7 @@ public class Pub extends Activity {
 	private Spinner eventSpinner;
 	private List<String> eventList;
 	private List<Integer> eventIds;
+	private int check = 0;
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
@@ -66,8 +72,7 @@ public class Pub extends Activity {
 		setContentView(R.layout.pub);
 
 		Intent sender = getIntent();
-		id = sender.getExtras().getString("id");
-
+		id = Integer.toString(sender.getExtras().getInt("id"));
 		createContent();
 
 	}
@@ -104,17 +109,25 @@ public class Pub extends Activity {
 	 * @return
 	 */
 	public void createContent() {
-		JSONArray jArrayContent = CustomHttpClient.getJSON(id,
-				"http://trainwemust.com/pubapp/jsonscriptpub.php");
-		//JSONArray jArraySpinner = CustomHttpClient.getJSON(id,
-		//		"http://trainwemust.com/pubapp/jsonscriptnewsfeed.php");
 		tvTitle = (TextView) findViewById(R.id.tvTitle);
 		tvSektion = (TextView) findViewById(R.id.tvSektion);
 		tvWebUrl = (TextView) findViewById(R.id.tvWebUrl);
 		ivImgUrl = (ImageView) findViewById(R.id.ivImgUrl);
 		tvInfo = (TextView) findViewById(R.id.tvInfo);
+		
+		JSONArray jArrayContent = CustomHttpClient.getJSON(id,
+				"http://trainwemust.com/pubapp/jsonscriptpub.php");
 		displayJSONContent(jArrayContent);
-		//createEventSpinner(jArraySpinner);
+		
+		JSONArray jArraySpinner = CustomHttpClient.getJSON(id,
+				"http://trainwemust.com/pubapp/jsonpubevents.php");
+		if (jArraySpinner.length() == 0) {
+			createEmptySpinner("Inga kommande events");
+		}
+		else {
+			createEventSpinner(jArraySpinner);
+		}
+
 	}
 
 	/**
@@ -165,7 +178,7 @@ public class Pub extends Activity {
 	}
 
 	public void createEventSpinner(JSONArray jArray) {
-		
+
 		eventList = new ArrayList<String>();
 		eventIds = new ArrayList<Integer>();
 		try {
@@ -175,20 +188,65 @@ public class Pub extends Activity {
 						"eventName: " + json_data.getString("eventName")
 								+ ", eventDateStart: "
 								+ json_data.getString("eventDateStart")
+								+ ", pubName: "
+								+ json_data.getString("pubName")
 								+ ", eventId: " + json_data.getInt("eventId")
 								+ ", pubId: " + json_data.getInt("pubId"));
 
-				String eventName = json_data.getString("pubName");
-				String eventDateStart = json_data.getString("eventName");
+				String eventName = json_data.getString("eventName");
+				String eventDateStart = json_data.getString("eventDateStart");
 				int eventId = json_data.getInt("eventId");
 				eventList.add(eventName + " - " + eventDateStart);
 				eventIds.add(eventId);
 			}
-		} 
-		catch (JSONException e) {
+		} catch (JSONException e) {
 			Log.e("log_tag", "Error parsing data " + e.toString());
 		}
 
+		eventSpinner = (Spinner) findViewById(R.id.eventSpinner);
+
+		@SuppressWarnings("unchecked")
+		ArrayAdapter dataAdapter = new ArrayAdapter(this,
+				android.R.layout.simple_spinner_item, eventList);
+		dataAdapter
+				.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+
+		eventSpinner.setAdapter(dataAdapter);
+		eventSpinner.setOnItemSelectedListener(new OnItemSelectedListener() {
+	        @Override
+	        public void onNothingSelected(AdapterView<?> arg0) {
+	        	
+	        }
+
+			@Override
+			public void onItemSelected(AdapterView<?> arg0, View arg1,
+					int arg2, long arg3) {
+				check = check + 1;
+				int goId = eventIds.get(arg2);
+				if (check > 1) {
+				Intent intent = new Intent(arg1.getContext(), Event.class);
+				intent.putExtra("id", goId);
+				startActivity(intent);
+				}
+			}
+	    });
+	}
+	
+	public void createEmptySpinner(String msg) {
+		
+		eventList = new ArrayList<String>();
+		eventIds = new ArrayList<Integer>();
+		eventList.add(msg);
+		
+		eventSpinner = (Spinner) findViewById(R.id.eventSpinner);
+		@SuppressWarnings("unchecked")
+		ArrayAdapter dataAdapter = new ArrayAdapter(this,
+				android.R.layout.simple_spinner_item, eventList);
+		dataAdapter
+				.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+
+		eventSpinner.setAdapter(dataAdapter);
+		
 	}
 
 }
