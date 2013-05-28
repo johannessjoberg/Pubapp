@@ -10,7 +10,6 @@ import org.json.JSONObject;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.graphics.Color;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
@@ -22,25 +21,19 @@ import android.widget.Toast;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
-import com.google.android.gms.maps.GoogleMap.OnMarkerClickListener;
 import com.google.android.gms.maps.LocationSource;
 import com.google.android.gms.maps.MapFragment;
 import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
-import com.google.android.gms.maps.model.LatLngBounds;
-import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
-import com.google.android.gms.maps.model.Polyline;
-import com.google.android.gms.maps.model.PolylineOptions;
 
 
 public class Karta extends Activity implements LocationListener, LocationSource{
 
 	private GoogleMap mMap;
-	
 	private String pubName;
-	private double lat, lng, myLat, myLng;
-	private OnLocationChangedListener locationListener;
+	private double lat, lng;
+	private OnLocationChangedListener mListener;
 	private LocationManager locationManager;
 
 	@Override
@@ -66,10 +59,9 @@ public class Karta extends Activity implements LocationListener, LocationSource{
 	public void onResume(){
 	    super.onResume();
 	    setUpMapIfNeeded();
-	    setLocation();
-	    if(locationManager == null)
+	    if(locationManager != null)
 	    {
-	        setUpLocationManagerIfNeeded();
+	        mMap.setMyLocationEnabled(true);
 	    }
 	}
 	@Override
@@ -88,79 +80,55 @@ public class Karta extends Activity implements LocationListener, LocationSource{
 
 			// Check if we were successful in obtaining the map.
 			if (mMap != null) {
-				mMap.setMyLocationEnabled(true); //enables the user to see current location
+				mMap.setMyLocationEnabled(true);
+				mMap.setLocationSource(this);
 				// The Map is verified. It is now safe to manipulate the map.
 			}
-		}
+		} 
 	}
 	
 	private void setUpLocationManagerIfNeeded(){
 		locationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
-		String provider = "";
-
 	    if(locationManager != null){
+	    String provider = "";
+	        boolean gpsIsEnabled = locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER);
+	        boolean networkIsEnabled = locationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER);
 	        
-	    	boolean gpsEnabled = locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER);
-	        boolean networkEnabled = locationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER);
+	        //Check whether GPS or Network can be reached, else notify user that no form of GPS is available
 
-	        if(gpsEnabled)
-	        { 
+	        if(gpsIsEnabled)
+	        {
 	            locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 5000, 16, this);
-	            provider = LocationManager.GPS_PROVIDER;
 	        }
-	        else if(networkEnabled)
+	        else if(networkIsEnabled)
 	        {
 	            locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 5000, 16, this);
-	            provider = LocationManager.NETWORK_PROVIDER;
 	        }
 	        else {
-	        	Toast.makeText(this, "GPS unavailable", Toast.LENGTH_LONG).show();
+	        	Toast.makeText(this, "GPS Unavailable", Toast.LENGTH_LONG).show();
 	        }
-	        Location location = locationManager.getLastKnownLocation(provider);
-            onLocationChanged(location);
 	    }
+	    //Location manager not working properly for some reason
 	    else {
-	    	//should never happen since locatioManager never should be zero
+	    	Toast.makeText(this, "LocationManager not working properly", Toast.LENGTH_LONG).show(); //Should never happen
 	    }
 	}
 	
 	@Override
-	public void onLocationChanged(Location location){
-		
-		myLat = location.getLatitude();
-		myLng = location.getLongitude();
-		//checks if location has changed
-	    
-		if( locationListener != null ){
-	        locationListener.onLocationChanged(location);
-	        LatLngBounds bounds = this.mMap.getProjection().getVisibleRegion().latLngBounds;
-	        if(!bounds.contains(new LatLng(myLat, myLng))){
-	             //The camera should never move unless outside ny of the two Chalmers campuses
-	             mMap.animateCamera(CameraUpdateFactory.newLatLng(new LatLng(myLat, myLng)));
-	        }
-	    }
-	}
+    public void onLocationChanged(Location location)
+    {
+        if( mListener != null ){
+            mListener.onLocationChanged(location);
+            mMap.animateCamera(CameraUpdateFactory.newLatLng(new LatLng(location.getLatitude(), location.getLongitude())));
+        }
+    }
 	
 	//Initially sets the map to Chalmers
 	private void setLocation() {
-		//Chalmers
-		if (myLat >= 57.68 && myLat <= 57.69 && myLng >= 11.97 && myLng <= 11.98){
-			Camera(57.68806, 11.977978);
-		}
-		//Out of bounds
-		else{
-			Camera(myLat, myLng);
-			Toast.makeText(this, "Your not at Chalmers", Toast.LENGTH_LONG).show();
-		}
-	}
-	
-	private void Camera(double lati, double lngi){ //metod som ställer in vad mappen visar
-		CameraPosition cameraPosition = new CameraPosition.Builder() 
-			.target(new LatLng(lati, lngi))
-			.zoom(15) //bestämmer hur nära kartan zoomar
-			.build();
-		mMap.moveCamera(CameraUpdateFactory //flyttar kameran till den nya camerapositionen utan animation
-		.newCameraPosition(cameraPosition));
+        CameraPosition cameraPosition = new CameraPosition.Builder()
+				.target(new LatLng(57.68806, 11.977978)).zoom(15).build();
+		mMap.moveCamera(CameraUpdateFactory
+				.newCameraPosition(cameraPosition));
 	}
 	
 	@Override
@@ -168,7 +136,7 @@ public class Karta extends Activity implements LocationListener, LocationSource{
 		// Handle item selection
 		switch (item.getItemId()) {
 		case R.id.mHome:
-			Intent home = new Intent (this, Main.class);
+			Intent home = new Intent(this, Main.class);
 			startActivity(home);
 			return true;
 		case R.id.mPubar:
@@ -224,9 +192,7 @@ public class Karta extends Activity implements LocationListener, LocationSource{
 					pubName 			= json_data.getString("pubName");
 					lat 				= json_data.getDouble("lat");
 					lng			 		= json_data.getDouble("lng");
-					mMap.addMarker(new MarkerOptions()
-					.position(new LatLng(lat, lng))
-					.title(pubName));
+					mMap.addMarker(new MarkerOptions().position(new LatLng(lat, lng)).title(pubName));
 				}
 			
 			}
@@ -257,11 +223,11 @@ public class Karta extends Activity implements LocationListener, LocationSource{
 
 	@Override
 	public void activate(OnLocationChangedListener listener){
-	    locationListener = listener;
+	    mListener = listener;
 	}
 
 	@Override
 	public void deactivate(){
-	    locationListener = null;
+	    mListener = null;
 	}
 }
