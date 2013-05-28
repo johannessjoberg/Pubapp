@@ -4,7 +4,7 @@
     
     <item 
         android:id="@+id/mHome"
-        android:title="Home"
+        android:icon="@drawable/home"
         android:orderInCategory="1"
         android:showAsAction="always"    
 		/>	
@@ -29,7 +29,7 @@
 		/>
     <item 
         android:id="@+id/mKal"
-        android:title="Kal"
+        android:icon="@drawable/calender"
         android:orderInCategory="5"
         android:showAsAction="always"    
 		/>
