@@ -12,30 +12,59 @@ import android.util.Log;
 
 public class ImageBitmap {
 
-    private static final String TAG = null;
+	private static ImageBitmap ourInstance = new ImageBitmap();
+
+	public static ImageBitmap getInstance() {
+		return ourInstance;
+	}
+
+	private ImageBitmap() {
+	}
+
+	private int pubId;
+	public String pubName;
+	
+	public int getPubId() {
+		return pubId;
+	}
+	
+	public void setPubId(int id) {
+		pubId = id;
+	}
+	
+	public void setPubName(String name) {
+		pubName = name;
+	}
+	
+	public String getPubName() {
+		return pubName;
+	}
+	
+	private static final String TAG = null;
 
 	/**
 	 * 
-	 * 	Takes an url to an image and returns the bitmap object.
+	 * Takes an url to an image and returns the bitmap object.
 	 * 
-	 * @param  url 	the url adress for the picture
-	 * @return      the Bitmap of the specified URL 
+	 * @param url
+	 *            the url adress for the picture
+	 * @return the Bitmap of the specified URL
 	 */
 	public static Bitmap getImageBitmap(String url) {
-        Bitmap bm = null;
-        try {
-            URL aURL = new URL(url);
-            URLConnection conn = aURL.openConnection();
-            conn.connect();
-            InputStream is = conn.getInputStream();
-            BufferedInputStream bis = new BufferedInputStream(is);
-            bm = BitmapFactory.decodeStream(bis);
-            bis.close();
-            is.close();
-       } catch (IOException e) {
-           Log.e(TAG, "Error getting bitmap", e);
-       }
-       return bm;
-    }
-	
+		Bitmap bm = null;
+		try {
+			URL aURL = new URL(url);
+			URLConnection conn = aURL.openConnection();
+			conn.connect();
+			InputStream is = conn.getInputStream();
+			BufferedInputStream bis = new BufferedInputStream(is);
+			bm = BitmapFactory.decodeStream(bis);
+			bis.close();
+			is.close();
+		} catch (IOException e) {
+			Log.e(TAG, "Error getting bitmap", e);
+		}
+		return bm;
+	}
+
 }

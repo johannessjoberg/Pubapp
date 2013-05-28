@@ -48,6 +48,10 @@ public class Pubar extends Activity {
 	public boolean onOptionsItemSelected(MenuItem item) {
 		// Handle item selection
 		switch (item.getItemId()) {
+		case R.id.mHome:
+			Intent home = new Intent (this, Main.class);
+			startActivity(home);
+			return true;
 		case R.id.mPubar:
 			Intent pubar = new Intent(this, Pubar.class);
 			startActivity(pubar);
