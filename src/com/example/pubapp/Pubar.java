@@ -88,10 +88,17 @@ public class Pubar extends Activity {
 	private void createContent() {
 		JSONArray content = CustomHttpClient.getJSON("1",
 				"http://trainwemust.com/pubapp/jsonscriptpubbar.php");
-		// fetches a JSONArray from the MySQL database through a Php-script
+		// fetches a JSONArray from the MySQL database through a PhP-script
 		displayJSONContent(content);
 	}
-
+	
+	/**
+	 * 
+	 * Takes a JSONArray and displays its content.
+	 * 
+	 * @param  jArray	the JSON array containing the content
+	 * @return 
+	 */	
 	private void displayJSONContent(JSONArray jArray) {
 		try {
 			for (int i = 0; i < jArray.length(); i++) {
@@ -129,12 +136,10 @@ public class Pubar extends Activity {
 
 	/**
 	 * 
-	 * Takes a String and max length and puts it in a TextView
+	 * Creates a TextView containing a String with a max length.
 	 * 
-	 * @param text
-	 *            The string displayed in the TextView
-	 * @param max
-	 *            Max length that will fit in the TextView
+	 * @param  text		The string displayed in the TextView
+	 * @param  max		Max length of the String
 	 * @return TextView
 	 */
 	private TextView addDynamicTextView(String text, int max) {

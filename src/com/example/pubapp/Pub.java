@@ -35,6 +35,7 @@ import android.widget.Toast;
 public class Pub extends Activity {
 
 	private static final String TAG = null;
+	
 	private ImageView ivImgUrl; 
 	/*
 	 * for showing the "sektion" picture to show the information of
@@ -138,7 +139,7 @@ public class Pub extends Activity {
 	 * 
 	 * Takes a JSONArray and displays its content.
 	 * 
-	 * @param jArray
+	 * @param  jArray	the JSON array containing the content
 	 * @return
 	 */
 	public void displayJSONContent(JSONArray jArray) {
@@ -180,7 +181,15 @@ public class Pub extends Activity {
 		}
 
 	}
-
+	
+	/**
+	 * 
+	 * Takes a JSONArray and display events in the spinner.
+	 * Starts a new activity when a row is clicked, linked to the correct event.
+	 * 
+	 * @param  jArray	the JSON array containing the content
+	 * @return
+	 */
 	public void createEventSpinner(JSONArray jArray) {
 
 		eventList = new ArrayList<String>();
@@ -236,6 +245,13 @@ public class Pub extends Activity {
 	    });
 	}
 	
+	/**
+	 * 
+	 * Create a spinner with the param msg showing.
+	 * 
+	 * @param  msg		String showing in the spinner.
+	 * @return
+	 */
 	public void createEmptySpinner(String msg) {
 		
 		eventList = new ArrayList<String>();

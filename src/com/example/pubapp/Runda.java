@@ -31,16 +31,6 @@ import android.widget.TableRow;
 import android.widget.TextView;
 
 public class Runda extends Activity {
-
-	/*
-	 * public void Runda(){ }
-	 * 
-	 * 
-	 * private static class RundaHolder{ private static final Runda INSTANCE =
-	 * new Runda(); }
-	 * 
-	 * public static Runda getInstance(){ return RundaHolder.INSTANCE; }
-	 */
 	
 	//declare vaiables
 	private String pubName, colorCode, pubNameQR;
@@ -112,7 +102,14 @@ public class Runda extends Activity {
 			return super.onOptionsItemSelected(item);
 		}
 	}
-
+	
+	/**
+	 * 
+	 * Creates all content using different functions.
+	 * 
+	 * @param  
+	 * @return 
+	 */
 	private void createContent() {
 		checkBoxes = new ArrayList<CheckBox>();
 		JSONArray content = CustomHttpClient.getJSON("1",
@@ -120,7 +117,14 @@ public class Runda extends Activity {
 		// fetches a JSONArray from the MySQL database through a Php-script
 		displayJSONContent(content);
 	}
-
+	
+	/**
+	 * 
+	 * Takes a JSONArray and displays its content.
+	 * 
+	 * @param  jArray	the JSON array containing the content
+	 * @return 
+	 */	
 	private void displayJSONContent(JSONArray jArray) {
 		try {
 			for (int i = 0; i < jArray.length(); i++) {
@@ -154,6 +158,15 @@ public class Runda extends Activity {
 		}
 	}
 
+	/**
+	 * 
+	 * Creates a TableRow with three cells.
+	 * 
+	 * @param  left		TextView showing in the first cell
+	 * @param  center	Button showing in the second cell
+	 * @param  right	CheckBox showing in the third cell
+	 * @return 
+	 */
 	private void createTableRowEvent(TextView left, Button center,
 			CheckBox right) {
 		TableLayout tl = (TableLayout) findViewById(R.id.rundaTableLayout);
@@ -178,6 +191,13 @@ public class Runda extends Activity {
 
 	}
 
+	/**
+	 * 
+	 * Creates a CheckBox with an id.
+	 * 
+	 * @param  id		id of the CheckBox
+	 * @return CheckBox
+	 */
 	private CheckBox addDynamicCheckBox(int id) {
 
 		CheckBox cb = new CheckBox(this);
@@ -188,6 +208,16 @@ public class Runda extends Activity {
 		return cb;
 	}
 
+	/**
+	 * 
+	 * Creates a Button to start the Bar-Code scanner.
+	 * 
+	 * @param  id		id of the pub
+	 * @param  cb		needed to check if CheckBox is "checked"
+	 * @param  name		name of the pub
+	 * @param  color	color of the Button
+	 * @return Button
+	 */
 	private Button addDynamicButton(final int id, final CheckBox cb,
 			final String name, String color) {
 		// creates a button dynamically
@@ -218,7 +248,15 @@ public class Runda extends Activity {
 		});
 		return btn;
 	}
-
+	
+	/**
+	 * 
+	 * Creates a TextView containing a String with a max length.
+	 * 
+	 * @param  text		The string displayed in the TextView
+	 * @param  max		Max length of the String
+	 * @return TextView
+	 */
 	private TextView addDynamicTextView(String text, int max) {
 		TextView tv = new TextView(this);
 		InputFilter[] fArray = new InputFilter[1];
@@ -233,6 +271,15 @@ public class Runda extends Activity {
 		tv.setText(text);
 		return tv;
 	}
+	/**
+	 * 
+	 * Handling the results from the Bar-Code scan.
+	 * 
+	 * @param  requestCode	Check if their is a request.
+	 * @param  resultCode	Used to check if scan result is ok.
+	 * @param  data			The Intent started by the Bar-Code scan.
+	 * @return 
+	 */
 	@Override
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 

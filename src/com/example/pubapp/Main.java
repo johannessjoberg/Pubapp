@@ -119,7 +119,7 @@ public class Main extends Activity {
 	 * 
 	 * Takes a JSONArray and displays its content.
 	 * 
-	 * @param  jArray
+	 * @param  jArray	the JSON array containing the content
 	 * @return 
 	 */	
 	public void displayJSONContent(JSONArray jArray) {
@@ -184,10 +184,10 @@ public class Main extends Activity {
 	
 	/**
 	 * 
-	 * Takes a String and max length and puts it in a TextView
+	 * Creates a TextView containing a String with a max length.
 	 * 
 	 * @param  text		The string displayed in the TextView
-	 * @param  max		Max length that will fit in the TextView
+	 * @param  max		Max length of the String
 	 * @return TextView
 	 */
 	private TextView addDynamicTextView(String text, int max) {

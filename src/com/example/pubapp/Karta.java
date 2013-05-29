@@ -42,16 +42,6 @@ public class Karta extends Activity implements LocationListener, LocationSource{
 	private double lat, lng, myLat, myLng;
 	private OnLocationChangedListener locationListener;
 	private LocationManager locationManager;
-
-	@Override
-	protected void onCreate(Bundle savedInstanceState) {
-		super.onCreate(savedInstanceState);
-		setContentView(R.layout.karta);
-		setUpMapIfNeeded();
-		setUpLocationManagerIfNeeded();
-		getInfo("string");
-		setLocation();
-	}
 	
 	@Override
 	public void onPause(){
@@ -78,6 +68,28 @@ public class Karta extends Activity implements LocationListener, LocationSource{
 		getActionBar().setDisplayShowHomeEnabled(false);
 		getActionBar().setDisplayShowTitleEnabled(false);
 		return true;
+	}
+	@Override
+	protected void onCreate(Bundle savedInstanceState) {
+		super.onCreate(savedInstanceState);
+		setContentView(R.layout.karta);
+		setUpMapIfNeeded();
+		setUpLocationManagerIfNeeded();
+		createContent();
+		setLocation();
+	}
+	
+	/**
+	 * 
+	 * Creates all content using different functions.
+	 * 
+	 * @param  
+	 * @return 
+	 */
+	public void createContent() {
+		JSONArray content = CustomHttpClient.getJSON("cords", "http://trainwemust.com/pubapp/jsoncord.php");
+		// fetches a JSONArray from the MySQL database through a PhP-script
+	    displayJSONContent(content);
 	}
 
 	private void setUpMapIfNeeded() {
@@ -154,10 +166,10 @@ public class Karta extends Activity implements LocationListener, LocationSource{
 		}
 	}
 	
-	private void Camera(double lati, double lngi){ //metod som st‰ller in vad mappen visar
+	private void Camera(double lati, double lngi){ //metod som ställer in vad mappen visar
 		CameraPosition cameraPosition = new CameraPosition.Builder() 
 			.target(new LatLng(lati, lngi))
-			.zoom(15) //best‰mmer hur n‰ra kartan zoomar
+			.zoom(15) //bestämmer hur långt kartan zoomar
 			.build();
 		mMap.moveCamera(CameraUpdateFactory //flyttar kameran till den nya camerapositionen utan animation
 		.newCameraPosition(cameraPosition));
@@ -191,27 +203,16 @@ public class Karta extends Activity implements LocationListener, LocationSource{
 			return super.onOptionsItemSelected(item);
 		}
 	}
-
-	public void getInfo(String id) {
-
-		// declare parameters that are passed to PHP script i.e. the id "id" and its value submitted by the app   
-		ArrayList<NameValuePair> postParameters = new ArrayList<NameValuePair>();
-
-		// define the parameter
-		postParameters.add(new BasicNameValuePair("id",id));
-		String response = null;
-
-		// call executeHttpPost method passing necessary parameters 
-		try {
-			response = CustomHttpClient.executeHttpPost(
-					"http://trainwemust.com/pubapp/jsoncord.php",  //url of jsonphpscript
-					postParameters);
-
-			// store the result returned by PHP script that runs MySQL query
-			String result = response.toString();       
-			//parse json data
-			try{
-				JSONArray jArray = new JSONArray(result);
+	
+	/**
+	 * 
+	 * Takes a JSONArray and displays its content.
+	 * 
+	 * @param  jArray
+	 * @return 
+	 */	
+	public void displayJSONContent(JSONArray jArray) {
+		try{
 				for(int i=0;i<jArray.length();i++){
 					JSONObject json_data = jArray.getJSONObject(i);
 					Log.i("log_tag",
@@ -232,12 +233,7 @@ public class Karta extends Activity implements LocationListener, LocationSource{
 			}
 			catch(JSONException e){
 				Log.e("log_tag", "Error parsing data "+e.toString());
-				Log.e("log_tag", "Failed data was:\n" + result);
 			}
-		}
-		catch (Exception e) {
-			Log.e("log_tag","Error in http connection!!" + e.toString());     
-		}
 	}
 
 	@Override
