@@ -12,7 +12,6 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-
 import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -27,139 +26,124 @@ import android.widget.TextView;
 
 public class Event extends Activity {
 
-	
-	private static final String TAG = null; 
-	private ImageView ivEventImgUrl; // for showing the "sektion" picture
-	private TextView tvEventTitle, tvEventPubname, tvEventDate, tvEventInfo, tvEventTid; // to show the information of the pub
-	private String pubName, eventName, eventInfo, eventStart, eventEnd, eventDateStart; // to store the result of MySQL query after decoding JSON
-	
+	private static final String TAG = null;
+	private TextView tvEventTitle, tvEventPubname, tvEventDate, tvEventInfo,
+			tvEventTid; // to show the information of the pub
+	private String pubName, eventName, eventInfo, eventStart, eventEnd,
+			eventDateStart; // to store the result of MySQL query after decoding
+							// JSON
+
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		getMenuInflater().inflate(R.menu.main_menu, menu);
 		getActionBar().setDisplayShowHomeEnabled(false);
 		getActionBar().setDisplayShowTitleEnabled(false);
 		return true;
-	} 
-	
+	}
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		StrictMode.setThreadPolicy(new StrictMode.ThreadPolicy.Builder()
-		.detectDiskReads().detectDiskWrites().detectNetwork().penaltyLog().build()); 
-		// StrictMode to catch accidental disk or network access on the application's main thread
+				.detectDiskReads().detectDiskWrites().detectNetwork()
+				.penaltyLog().build());
+		// StrictMode to catch accidental disk or network access on the
+		// application's main thread
 
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.event);
-		
-		Intent sender=getIntent();
-        String id = Integer.toString(sender.getExtras().getInt("id"));
 
-        tvEventTitle 	= (TextView) findViewById(R.id.tvEventTitle);
-        tvEventPubname 	= (TextView) findViewById(R.id.tvEventPubname);
-        tvEventDate 	= (TextView) findViewById(R.id.tvEventDate);
-        tvEventTid 		= (TextView) findViewById(R.id.tvEventTid);
-        //ivEventImgUrl	= (ImageView) findViewById(R.id.ivEventImgUrl);
-        tvEventInfo 	= (TextView) findViewById(R.id.tvEventInfo);
-		getInfo(id);
-		
+		Intent sender = getIntent();
+		String id = Integer.toString(sender.getExtras().getInt("id"));
+
+		tvEventTitle = (TextView) findViewById(R.id.tvEventTitle);
+		tvEventPubname = (TextView) findViewById(R.id.tvEventPubname);
+		tvEventDate = (TextView) findViewById(R.id.tvEventDate);
+		tvEventTid = (TextView) findViewById(R.id.tvEventTid);
+		tvEventInfo = (TextView) findViewById(R.id.tvEventInfo);
+
+		JSONArray content = CustomHttpClient.getJSON(id,
+				"http://trainwemust.com/pubapp/jsonscriptevent.php");
+		// fetches a JSONArray from the MySQL database through a PhP-script
+		displayJSONContent(content);
+
 	}
-	
+
 	public boolean onOptionsItemSelected(MenuItem item) {
-	    // Handle item selection
-	    switch (item.getItemId()) {
-	    case R.id.mHome:
-			Intent home = new Intent (this, Main.class);
+		// Handle item selection
+		switch (item.getItemId()) {
+		case R.id.mHome:
+			Intent home = new Intent(this, Main.class);
 			startActivity(home);
-			return true;    
-	    case R.id.mPubar:
-	        	Intent pubar = new Intent(this, Pubar.class);
-	        	startActivity(pubar);
-	            return true;
-	        case R.id.mKarta:
-	        	Intent kar = new Intent(this, Karta.class);
-	        	startActivity(kar);
-	        	return true;
-	        case R.id.mRunda:
-	        	Intent rund = new Intent(this, Runda.class);
-	        	startActivity(rund);
-	        	return true;
-	        case R.id.mKal:
-	        	Intent kal = new Intent(this, Kalender.class);
-	        	startActivity(kal);
-	        	return true;
-	        default:
-	            return super.onOptionsItemSelected(item);
-	    }
+			return true;
+		case R.id.mPubar:
+			Intent pubar = new Intent(this, Pubar.class);
+			startActivity(pubar);
+			return true;
+		case R.id.mKarta:
+			Intent kar = new Intent(this, Karta.class);
+			startActivity(kar);
+			return true;
+		case R.id.mRunda:
+			Intent rund = new Intent(this, Runda.class);
+			startActivity(rund);
+			return true;
+		case R.id.mKal:
+			Intent kal = new Intent(this, Kalender.class);
+			startActivity(kal);
+			return true;
+		default:
+			return super.onOptionsItemSelected(item);
+		}
 	}
-	
+
 	/**
 	 * 
-	 * Connects to a MySQL via a php json script and makes information
-	 * concerning the specified pub in id available for use. 
+	 * Takes a JSONArray and displays its content.
 	 * 
-	 * @param  id 	the "pub" id of the specified pub
-	 * @return      
-	 */
-	public void getInfo(String id) {
-
-		// declare parameters that are passed to PHP script i.e. the id "id" and its value submitted by the app   
-		ArrayList<NameValuePair> postParameters = new ArrayList<NameValuePair>();
-
-		// define the parameter
-		postParameters.add(new BasicNameValuePair("id",id));
-		String response = null;
-
-		// call executeHttpPost method passing necessary parameters 
+	 * @param  jArray
+	 * @return 
+	 */	
+	public void displayJSONContent(JSONArray jArray) {
 		try {
-			response = CustomHttpClient.executeHttpPost(
-					"http://trainwemust.com/pubapp/jsonscriptevent.php",  // url of jsonphpscript
-					postParameters);
+			for (int i = 0; i < jArray.length(); i++) {
+				JSONObject json_data = jArray.getJSONObject(i);
+				Log.i("log_tag",
+						"eventId: " + json_data.getInt("eventId")
+								+ ", pubName: "
+								+ json_data.getString("pubName")
+								+ ", eventName: "
+								+ json_data.getString("eventName")
+								+ ", eventInfo: "
+								+ json_data.getString("eventInfo")
+								+ ", eventDateStart: "
+								+ json_data.getString("eventDateStart")
+								+ ", eventStart: "
+								+ json_data.getString("eventStart")
+								+ ", eventEnd: "
+								+ json_data.getString("eventEnd"));
 
-			// store the result returned by PHP script that runs MySQL query
-			String result = response.toString();       
-			//parse json data
-			try{
-				JSONArray jArray = new JSONArray(result);
-				for(int i=0;i<jArray.length();i++){
-					JSONObject json_data = jArray.getJSONObject(i);
-					Log.i("log_tag","eventId: "+json_data.getInt("eventId")+
-							", pubName: "+json_data.getString("pubName")+
-							", eventName: "+json_data.getString("eventName")+
-							", eventInfo: "+json_data.getString("eventInfo")+
-							", eventDateStart: "+json_data.getString("eventDateStart")+
-							", eventStart: "+json_data.getString("eventStart")+
-							", eventEnd: "+json_data.getString("eventEnd")
-							);
-					
-					//Converts json data to strings
-					pubName 			= json_data.getString("pubName");
-					eventName 		= json_data.getString("eventName");
-					eventInfo 		= json_data.getString("eventInfo");
-					eventDateStart 		= json_data.getString("eventDateStart");
-					eventStart 		= json_data.getString("eventStart");
-					eventEnd 		= json_data.getString("eventEnd");
-					
-				}
+				// Converts json data to strings
+				pubName = json_data.getString("pubName");
+				eventName = json_data.getString("eventName");
+				eventInfo = json_data.getString("eventInfo");
+				eventDateStart = json_data.getString("eventDateStart");
+				eventStart = json_data.getString("eventStart");
+				eventEnd = json_data.getString("eventEnd");
 
 			}
-			catch(JSONException e){
-				Log.e("log_tag", "Error parsing data "+e.toString());
-				Log.e("log_tag", "Failed data was:\n" + result);
-			}
 
-			try{
-				tvEventTitle.setText(eventName);
-				tvEventPubname.setText("Vart : " + pubName);
-				tvEventDate.setText("Datum : " + eventDateStart);
-				tvEventTid.setText("Tid: " + eventStart + "-" + eventEnd);
-				//ivEventImgUrl.setImageBitmap(ImageBitmap.getImageBitmap(imgurl)); // fetches a bitmap
-				tvEventInfo.setText("Info : " + eventInfo);
-			}
-			catch(Exception e){
-				Log.e("log_tag","Error in Display!" + e.toString());;          
-			}   
+		} catch (JSONException e) {
+			Log.e("log_tag", "Error parsing data " + e.toString());
 		}
-		catch (Exception e) {
-			Log.e("log_tag","Error in http connection!!" + e.toString());     
+
+		try {
+			tvEventTitle.setText(eventName);
+			tvEventPubname.setText("Vart : " + pubName);
+			tvEventDate.setText("Datum : " + eventDateStart);
+			tvEventTid.setText("Tid: " + eventStart + "-" + eventEnd);
+			tvEventInfo.setText("Info : " + eventInfo);
+		} catch (Exception e) {
+			Log.e("log_tag", "Error in Display!" + e.toString());
 		}
 	}
 }

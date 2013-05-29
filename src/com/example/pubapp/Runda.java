@@ -32,21 +32,11 @@ import android.widget.TextView;
 
 public class Runda extends Activity {
 
-	/*
-	 * public void Runda(){ }
-	 * 
-	 * 
-	 * private static class RundaHolder{ private static final Runda INSTANCE =
-	 * new Runda(); }
-	 * 
-	 * public static Runda getInstance(){ return RundaHolder.INSTANCE; }
-	 */
 	private String pubName, colorCode, pubNameQR;
 	private int pubId, pubIdQR;
 	private boolean flag = true;
 	private boolean waitForResult = false;
 	private ArrayList<CheckBox> checkBoxes;
-	// int idTest = 1;
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
@@ -108,7 +98,14 @@ public class Runda extends Activity {
 			return super.onOptionsItemSelected(item);
 		}
 	}
-
+	
+	/**
+	 * 
+	 * Creates all content using different functions.
+	 * 
+	 * @param  
+	 * @return 
+	 */
 	private void createContent() {
 		checkBoxes = new ArrayList<CheckBox>();
 		JSONArray content = CustomHttpClient.getJSON("1",
@@ -116,7 +113,14 @@ public class Runda extends Activity {
 		// fetches a JSONArray from the MySQL database through a Php-script
 		displayJSONContent(content);
 	}
-
+	
+	/**
+	 * 
+	 * Takes a JSONArray and displays its content.
+	 * 
+	 * @param  jArray
+	 * @return 
+	 */	
 	private void displayJSONContent(JSONArray jArray) {
 		try {
 			for (int i = 0; i < jArray.length(); i++) {
@@ -173,7 +177,15 @@ public class Runda extends Activity {
 				LayoutParams.WRAP_CONTENT));
 
 	}
-
+	/**
+	 * 
+	 * Creates a dynamic checkBox.
+	 * 
+	 * @param  id
+	 * 		   sets the the id of the CheckBox
+	 * 
+	 * @return a CheckBox
+	 */
 	private CheckBox addDynamicCheckBox(int id) {
 
 		CheckBox cb = new CheckBox(this);
@@ -183,7 +195,19 @@ public class Runda extends Activity {
 		
 		return cb;
 	}
-
+	
+	/**
+	 * 
+	 * Creates a button with a listener to the QR reader.
+	 * Checks if the CheckBox has been "checked", otherwise a new scan begin.
+	 * 
+	 * @param  id		Id to send extra with the intent
+	 * @param  cb		To seen if been "checked"
+	 * @param  goClass	Target class for the intent
+	 * @param  name		The string displayed in the Button
+	 * @param  color	Color of the button
+	 * @return Button
+	 */
 	private Button addDynamicButton(final int id, final CheckBox cb,
 			final String name, String color) {
 		// creates a button dynamically

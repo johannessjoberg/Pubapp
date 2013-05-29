@@ -87,7 +87,14 @@ public class Pubar extends Activity {
 		// fetches a JSONArray from the MySQL database through a Php-script
 		displayJSONContent(content);
 	}
-
+	
+	/**
+	 * 
+	 * Takes a JSONArray and displays its content.
+	 * 
+	 * @param  jArray
+	 * @return 
+	 */	
 	private void displayJSONContent(JSONArray jArray) {
 		try {
 			for (int i = 0; i < jArray.length(); i++) {
@@ -108,7 +115,7 @@ public class Pubar extends Activity {
 				colorCode = json_data.getString("colorCode");
 
 				colorCode.toUpperCase();
-				TextView tv = addDynamicTextView(sektion, 20);
+				TextView tv = addDynamicTextView(sektion, 50);
 				Button bt = addDynamicButton(pubId, Pub.class, pubName,
 						colorCode);
 
