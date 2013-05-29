@@ -23,9 +23,11 @@ import android.widget.TextView;
 
 public class Pubar extends Activity {
 
+	//Declare variables
 	private String pubName, sektion, colorCode;
 	private int pubId;
 
+	//Create the actionbar menu.
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		getMenuInflater().inflate(R.menu.main_menu, menu);
@@ -35,6 +37,7 @@ public class Pubar extends Activity {
 		return true;
 	}
 
+	//Create the Main.java activity and run the method createContent
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
@@ -44,6 +47,7 @@ public class Pubar extends Activity {
 		createContent();
 	}
 
+	//Add the listners and cases to the actionbar
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
 		// Handle item selection
@@ -87,14 +91,7 @@ public class Pubar extends Activity {
 		// fetches a JSONArray from the MySQL database through a Php-script
 		displayJSONContent(content);
 	}
-	
-	/**
-	 * 
-	 * Takes a JSONArray and displays its content.
-	 * 
-	 * @param  jArray
-	 * @return 
-	 */	
+
 	private void displayJSONContent(JSONArray jArray) {
 		try {
 			for (int i = 0; i < jArray.length(); i++) {
@@ -115,7 +112,7 @@ public class Pubar extends Activity {
 				colorCode = json_data.getString("colorCode");
 
 				colorCode.toUpperCase();
-				TextView tv = addDynamicTextView(sektion, 50);
+				TextView tv = addDynamicTextView(sektion, 20);
 				Button bt = addDynamicButton(pubId, Pub.class, pubName,
 						colorCode);
 

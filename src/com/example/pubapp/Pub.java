@@ -35,17 +35,20 @@ import android.widget.Toast;
 public class Pub extends Activity {
 
 	private static final String TAG = null;
-	private ImageView ivImgUrl; // for showing the "sektion" picture
-	private TextView tvTitle, tvSektion, tvWebUrl, tvInfo; 
-	// to show the information of the pub
-	private String pubName, sektion, weburl, imgurl, info, id; 
-	// to store the result of MySQL query after decoding JSON
+	private ImageView ivImgUrl; 
+	/*
+	 * for showing the "sektion" picture to show the information of
+	 * the pub to store the result of MySQL query after decoding JSON.	
+	*/
+	private TextView tvTitle, tvSektion, tvWebUrl, tvInfo;
+	private String pubName, sektion, weburl, imgurl, info, id;
 
 	private Spinner eventSpinner;
 	private List<String> eventList;
 	private List<Integer> eventIds;
 	private int check = 0;
 
+	//Create the actionbar menu. The app does this on every activity page
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		getMenuInflater().inflate(R.menu.main_menu, menu);
@@ -53,7 +56,8 @@ public class Pub extends Activity {
 		getActionBar().setDisplayShowTitleEnabled(false);
 		return true;
 	}
-
+	
+	//Create the activity and run the method createContent
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		StrictMode.setThreadPolicy(new StrictMode.ThreadPolicy.Builder()
@@ -72,6 +76,7 @@ public class Pub extends Activity {
 
 	}
 
+	//Add the listners and cases to the actionbar
 	public boolean onOptionsItemSelected(MenuItem item) {
 		// Handle item selection
 		switch (item.getItemId()) {
@@ -165,8 +170,9 @@ public class Pub extends Activity {
 			tvTitle.setText(pubName);
 			tvSektion.setText(sektion);
 			tvWebUrl.setText(weburl);
-			ivImgUrl.setImageBitmap(ImageBitmap.getImageBitmap(imgurl)); 
-			// fetches a bitmap
+			ivImgUrl.setImageBitmap(ImageBitmap.getImageBitmap(imgurl)); // fetches
+																			// a
+																			// bitmap
 			tvInfo.setText(info);
 		} catch (Exception e) {
 			Log.e("log_tag", "Error in Display!" + e.toString());
@@ -174,16 +180,7 @@ public class Pub extends Activity {
 		}
 
 	}
-	
-	/**
-	 * 
-	 * Takes a JSONArray and puts content in a spinner. 
-	 * Also links each row in the spinner to the correct event with an 
-	 * OnItemSelected listener.
-	 * 
-	 * @param jArray
-	 * @return
-	 */
+
 	public void createEventSpinner(JSONArray jArray) {
 
 		eventList = new ArrayList<String>();
@@ -239,13 +236,6 @@ public class Pub extends Activity {
 	    });
 	}
 	
-	/**
-	 * 
-	 * Creates an spinner showing the param msg only.
-	 * 
-	 * @param msg
-	 * @return
-	 */
 	public void createEmptySpinner(String msg) {
 		
 		eventList = new ArrayList<String>();

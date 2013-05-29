@@ -39,11 +39,14 @@ import android.widget.TabHost.TabSpec;
 import android.widget.Toast;
 
 public class Main extends Activity {
-
+	
+	
+	//Declare variables
 	private String pubName, eventName, eventDateStart = ""; // to store the result of MySQL query after decoding JSON
 	private int eventId = 0;
 	private boolean flag = true;
 	
+	//Create the actionbar menu. 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		getMenuInflater().inflate(R.menu.main_menu, menu);
@@ -54,6 +57,7 @@ public class Main extends Activity {
 		
 	} 
 	
+	//Create the Main.java activity and run the method createContent
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		StrictMode.setThreadPolicy(new StrictMode.ThreadPolicy.Builder()
@@ -64,6 +68,7 @@ public class Main extends Activity {
 		createContent();
 	}
 	
+	//Add the listners and cases to the actionbar
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
 	    // Handle item selection
@@ -165,8 +170,6 @@ public class Main extends Activity {
         btn.setHeight(0);
         btn.setText(text);
         btn.setBackgroundResource(R.drawable.green_button);
-        //btn.setPadding(15, 15, 15, 15);
-        //btn.getBackground().setColorFilter(Color.parseColor("#75E781"), PorterDuff.Mode.OVERLAY);
 		btn.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {

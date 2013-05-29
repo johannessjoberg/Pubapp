@@ -9,7 +9,20 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 public class Kalender extends Activity{
-		
+	
+	public void Kalender(){
+	}
+	
+	private static class KalenderHolder{
+		private static final Kalender INSTANCE = new Kalender();
+	}
+	
+	public static Kalender getInstance(){
+		return KalenderHolder.INSTANCE;
+	}
+	
+	
+	//Create the actionbar menu. The app does this on every activity page
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		getMenuInflater().inflate(R.menu.main_menu, menu);
@@ -19,12 +32,14 @@ public class Kalender extends Activity{
 		return true;
 	} 
 	
+	//Create the activity 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.kalender);
 	}
 	
+	//Add tabs to the actionbar
 	public boolean onOptionsItemSelected(MenuItem item) {
 	    // Handle item selection
 	    switch (item.getItemId()) {
