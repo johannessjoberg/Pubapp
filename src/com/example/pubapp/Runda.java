@@ -2,9 +2,7 @@ package com.example.pubapp;
 
 import java.util.ArrayList;
 
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
+import org.json.*;
 
 import com.example.pubapp.R.id;
 import com.example.pubapp.R;
@@ -106,9 +104,7 @@ public class Runda extends Activity {
 	/**
 	 * 
 	 * Creates all content using different functions.
-	 * 
-	 * @param  
-	 * @return 
+	 *  
 	 */
 	private void createContent() {
 		checkBoxes = new ArrayList<CheckBox>();
@@ -123,7 +119,7 @@ public class Runda extends Activity {
 	 * Takes a JSONArray and displays its content.
 	 * 
 	 * @param  jArray	the JSON array containing the content
-	 * @return 
+	 * 
 	 */	
 	private void displayJSONContent(JSONArray jArray) {
 		try {
@@ -165,7 +161,7 @@ public class Runda extends Activity {
 	 * @param  left		TextView showing in the first cell
 	 * @param  center	Button showing in the second cell
 	 * @param  right	CheckBox showing in the third cell
-	 * @return 
+	 * 
 	 */
 	private void createTableRowEvent(TextView left, Button center,
 			CheckBox right) {
@@ -196,7 +192,8 @@ public class Runda extends Activity {
 	 * Creates a CheckBox with an id.
 	 * 
 	 * @param  id		id of the CheckBox
-	 * @return CheckBox
+	 * 
+	 * @return a CheckBox with the id of Param id
 	 */
 	private CheckBox addDynamicCheckBox(int id) {
 
@@ -216,7 +213,8 @@ public class Runda extends Activity {
 	 * @param  cb		needed to check if CheckBox is "checked"
 	 * @param  name		name of the pub
 	 * @param  color	color of the Button
-	 * @return Button
+	 * 
+	 * @return a Button linked to start the Bar-code scanner.
 	 */
 	private Button addDynamicButton(final int id, final CheckBox cb,
 			final String name, String color) {
@@ -255,7 +253,8 @@ public class Runda extends Activity {
 	 * 
 	 * @param  text		The string displayed in the TextView
 	 * @param  max		Max length of the String
-	 * @return TextView
+	 * 
+	 * @return a dynamic TextView containing the Param text
 	 */
 	private TextView addDynamicTextView(String text, int max) {
 		TextView tv = new TextView(this);
@@ -278,7 +277,7 @@ public class Runda extends Activity {
 	 * @param  requestCode	Check if their is a request.
 	 * @param  resultCode	Used to check if scan result is ok.
 	 * @param  data			The Intent started by the Bar-Code scan.
-	 * @return 
+	 *  
 	 */
 	@Override
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {

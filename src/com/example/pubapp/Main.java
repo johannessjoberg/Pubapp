@@ -4,9 +4,7 @@ import java.util.ArrayList;
 
 import org.apache.http.NameValuePair;
 import org.apache.http.message.BasicNameValuePair;
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
+import org.json.*;
 
 import android.graphics.PorterDuff.Mode;
 import android.os.Bundle;
@@ -98,8 +96,6 @@ public class Main extends Activity {
 	 * 
 	 * Creates all content using different functions.
 	 * 
-	 * @param  
-	 * @return 
 	 */
 	public void createContent() {
 		
@@ -120,7 +116,7 @@ public class Main extends Activity {
 	 * Takes a JSONArray and displays its content.
 	 * 
 	 * @param  jArray	the JSON array containing the content
-	 * @return 
+	 * 
 	 */	
 	public void displayJSONContent(JSONArray jArray) {
 		try{
@@ -161,7 +157,8 @@ public class Main extends Activity {
 	 * @param  id		Id to send extra with the intent
 	 * @param  goClass	Target class for the intent
 	 * @param  text		The string displayed in the Button
-	 * @return Button
+	 * 
+	 * @return a Dynamic Button linked to the goClass
 	 */
 	private Button addDynamicButton(final int id, final Class<?> goClass, String text) {
 		// creates a button dynamically
@@ -188,7 +185,8 @@ public class Main extends Activity {
 	 * 
 	 * @param  text		The string displayed in the TextView
 	 * @param  max		Max length of the String
-	 * @return TextView
+	 * 
+	 * @return a dynamic TextView containing the Param text
 	 */
 	private TextView addDynamicTextView(String text, int max) {
 		// creates a button dynamically
@@ -213,7 +211,7 @@ public class Main extends Activity {
 	 * @param  left		TextView to the left
 	 * @param  center	TextView in the center
 	 * @param  right	TextView to the right
-	 * @return 
+	 * 
 	 */
 	public void createTableRowEvent(TextView left, TextView center, TextView right) {
 		  TableLayout tl = (TableLayout) findViewById(R.id.mainTableLayout);
@@ -242,7 +240,7 @@ public class Main extends Activity {
 	 * Creates a row that spans over 3 cells and shows a date.
 	 * 
 	 * @param  date		TextView with a date
-	 * @return 
+	 * 
 	 */
 	public void createTableRowDate(TextView date) {
 		  TableLayout tl = (TableLayout) findViewById(R.id.mainTableLayout);
@@ -262,8 +260,8 @@ public class Main extends Activity {
 	 * 
 	 * Creates a row that spans over 3 cells and shows a button.
 	 * 
-	 * @param  btn		Button
-	 * @return 
+	 * @param  btn		The Button
+	 * 
 	 */
 	public void createTableRowButton(Button btn) {
 

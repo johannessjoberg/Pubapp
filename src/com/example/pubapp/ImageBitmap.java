@@ -5,15 +5,25 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.net.URL;
 import java.net.URLConnection;
+import org.json.*;
 
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.util.Log;
-
+/** 
+ * 
+ * ImageBitmap class contains a function to download from the web and convert it to a bitmap object.
+ * It design as a singleton because it also holds some variables for the class Runda.
+ *
+ */
 public class ImageBitmap {
 
 	private static ImageBitmap ourInstance = new ImageBitmap();
-
+	/** 
+	 * 
+	 * Basic singleton setup.
+	 * 
+	 */
 	public static ImageBitmap getInstance() {
 		return ourInstance;
 	}
@@ -24,6 +34,11 @@ public class ImageBitmap {
 	private int pubId;
 	public String pubName;
 	
+	/**
+	 * 
+	 * Setters and Getters for pubId and pubName.
+	 * 
+	 */
 	public int getPubId() {
 		return pubId;
 	}
@@ -46,8 +61,8 @@ public class ImageBitmap {
 	 * 
 	 * Takes an url to an image and returns the bitmap object.
 	 * 
-	 * @param url
-	 *            the url adress for the picture
+	 * @param url		the url adress for the picture
+	 * 
 	 * @return the Bitmap of the specified URL
 	 */
 	public static Bitmap getImageBitmap(String url) {

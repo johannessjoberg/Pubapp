@@ -1,8 +1,6 @@
 package com.example.pubapp;
 
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
+import org.json.*;
 
 import android.graphics.PorterDuff;
 import android.graphics.PorterDuffColorFilter;
@@ -80,9 +78,6 @@ public class Pubar extends Activity {
 	/**
 	 * 
 	 * Creates all content using different functions. 
-	 * @param 
-	 * 
-	 * @return
 	 * 
 	 */
 	private void createContent() {
@@ -97,7 +92,7 @@ public class Pubar extends Activity {
 	 * Takes a JSONArray and displays its content.
 	 * 
 	 * @param  jArray	the JSON array containing the content
-	 * @return 
+	 * 
 	 */	
 	private void displayJSONContent(JSONArray jArray) {
 		try {
@@ -140,7 +135,8 @@ public class Pubar extends Activity {
 	 * 
 	 * @param  text		The string displayed in the TextView
 	 * @param  max		Max length of the String
-	 * @return TextView
+	 * 
+	 * @return a dynamic TextView containing the Param text
 	 */
 	private TextView addDynamicTextView(String text, int max) {
 		// creates a button dynamically
@@ -162,13 +158,11 @@ public class Pubar extends Activity {
 	 * 
 	 * Creates a button with a listener to a specific class.
 	 * 
-	 * @param id
-	 *            Id to send extra with the intent
-	 * @param goClass
-	 *            Target class for the intent
-	 * @param text
-	 *            The string displayed in the Button
-	 * @return Button
+	 * @param id		Used to send with the intent
+	 * @param goClass	Target class for the intent
+	 * @param text		The string displayed in the Button
+	 * 
+	 * @return a Dynamic Button linked to the goClass
 	 */
 	private Button addDynamicButton(final int id, final Class<?> goClass,
 			String text, String color) {

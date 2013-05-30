@@ -10,9 +10,7 @@ import java.util.List;
 
 import org.apache.http.NameValuePair;
 import org.apache.http.message.BasicNameValuePair;
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
+import org.json.*;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -111,7 +109,7 @@ public class Pub extends Activity {
 	 * Creates all content using different functions.
 	 * 
 	 * @param
-	 * @return
+	 * 
 	 */
 	public void createContent() {
 		tvTitle = (TextView) findViewById(R.id.tvTitle);
@@ -140,7 +138,7 @@ public class Pub extends Activity {
 	 * Takes a JSONArray and displays its content.
 	 * 
 	 * @param  jArray	the JSON array containing the content
-	 * @return
+	 * 
 	 */
 	public void displayJSONContent(JSONArray jArray) {
 
@@ -188,7 +186,7 @@ public class Pub extends Activity {
 	 * Starts a new activity when a row is clicked, linked to the correct event.
 	 * 
 	 * @param  jArray	the JSON array containing the content
-	 * @return
+	 *
 	 */
 	public void createEventSpinner(JSONArray jArray) {
 
@@ -250,7 +248,7 @@ public class Pub extends Activity {
 	 * Create a spinner with the param msg showing.
 	 * 
 	 * @param  msg		String showing in the spinner.
-	 * @return
+	 * 
 	 */
 	public void createEmptySpinner(String msg) {
 		
