@@ -4,9 +4,7 @@ import java.util.ArrayList;
 
 import org.apache.http.NameValuePair;
 import org.apache.http.message.BasicNameValuePair;
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
+import org.json.*;
 
 import android.graphics.PorterDuff.Mode;
 import android.os.Bundle;
@@ -39,11 +37,14 @@ import android.widget.TabHost.TabSpec;
 import android.widget.Toast;
 
 public class Main extends Activity {
-
+	
+	
+	//Declare variables
 	private String pubName, eventName, eventDateStart = ""; // to store the result of MySQL query after decoding JSON
-	private int id;
+	private int eventId = 0;
 	private boolean flag = true;
 	
+	//Create the actionbar menu. 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		getMenuInflater().inflate(R.menu.main_menu, menu);
@@ -54,6 +55,7 @@ public class Main extends Activity {
 		
 	} 
 	
+	//Create the Main.java activity and run the method createContent
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		StrictMode.setThreadPolicy(new StrictMode.ThreadPolicy.Builder()
@@ -64,6 +66,7 @@ public class Main extends Activity {
 		createContent();
 	}
 	
+	//Add the listners and cases to the actionbar
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
 	    // Handle item selection
@@ -93,8 +96,6 @@ public class Main extends Activity {
 	 * 
 	 * Creates all content using different functions.
 	 * 
-	 * @param  
-	 * @return 
 	 */
 	public void createContent() {
 		
@@ -114,8 +115,8 @@ public class Main extends Activity {
 	 * 
 	 * Takes a JSONArray and displays its content.
 	 * 
-	 * @param  jArray
-	 * @return 
+	 * @param  jArray	the JSON array containing the content
+	 * 
 	 */	
 	public void displayJSONContent(JSONArray jArray) {
 		try{
@@ -124,12 +125,13 @@ public class Main extends Activity {
 				Log.i("log_tag","eventName: "+json_data.getString("eventName")+
 						", pubName: "+json_data.getString("pubName")+
 						", eventDateStart: "+json_data.getString("eventDateStart")+
-						", id: "+json_data.getInt("id")
+						", eventId: "+json_data.getInt("eventId")+
+						", pubId: "+json_data.getInt("pubId")
 						);
 				
 				pubName 	= json_data.getString("pubName");
 				eventName 	= json_data.getString("eventName");
-				id = json_data.getInt("id");
+				eventId = json_data.getInt("eventId");
 				
 				String tempEventDateStart = json_data.getString("eventDateStart");
 				if (!(eventDateStart.equals(tempEventDateStart))) { // makes sure date only shows once
@@ -138,7 +140,7 @@ public class Main extends Activity {
 				}
 				
 				// creates an event-row with title, pubname and button
-				createTableRowEvent(addDynamicTextView(eventName, 20),addDynamicTextView(pubName, 12),addDynamicButton(id, Event.class, "Visa"));
+				createTableRowEvent(addDynamicTextView(eventName, 20),addDynamicTextView(pubName, 12),addDynamicButton(eventId, Event.class, "Visa"));
 				
 			}	
 		}
@@ -155,14 +157,16 @@ public class Main extends Activity {
 	 * @param  id		Id to send extra with the intent
 	 * @param  goClass	Target class for the intent
 	 * @param  text		The string displayed in the Button
-	 * @return Button
+	 * 
+	 * @return a Dynamic Button linked to the goClass
 	 */
 	private Button addDynamicButton(final int id, final Class<?> goClass, String text) {
 		// creates a button dynamically
         Button btn = new Button(this);
         // sets button properties
+        btn.setHeight(0);
         btn.setText(text);
-        btn.getBackground().setColorFilter(Color.parseColor("#75E781"), PorterDuff.Mode.DARKEN);
+        btn.setBackgroundResource(R.drawable.green_button);
 		btn.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
@@ -177,11 +181,12 @@ public class Main extends Activity {
 	
 	/**
 	 * 
-	 * Takes a String and max length and puts it in a TextView
+	 * Creates a TextView containing a String with a max length.
 	 * 
 	 * @param  text		The string displayed in the TextView
-	 * @param  max		Max length that will fit in the TextView
-	 * @return TextView
+	 * @param  max		Max length of the String
+	 * 
+	 * @return a dynamic TextView containing the Param text
 	 */
 	private TextView addDynamicTextView(String text, int max) {
 		// creates a button dynamically
@@ -206,7 +211,7 @@ public class Main extends Activity {
 	 * @param  left		TextView to the left
 	 * @param  center	TextView in the center
 	 * @param  right	TextView to the right
-	 * @return 
+	 * 
 	 */
 	public void createTableRowEvent(TextView left, TextView center, TextView right) {
 		  TableLayout tl = (TableLayout) findViewById(R.id.mainTableLayout);
@@ -235,7 +240,7 @@ public class Main extends Activity {
 	 * Creates a row that spans over 3 cells and shows a date.
 	 * 
 	 * @param  date		TextView with a date
-	 * @return 
+	 * 
 	 */
 	public void createTableRowDate(TextView date) {
 		  TableLayout tl = (TableLayout) findViewById(R.id.mainTableLayout);
@@ -255,8 +260,8 @@ public class Main extends Activity {
 	 * 
 	 * Creates a row that spans over 3 cells and shows a button.
 	 * 
-	 * @param  btn		Button
-	 * @return 
+	 * @param  btn		The Button
+	 * 
 	 */
 	public void createTableRowButton(Button btn) {
 

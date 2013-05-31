@@ -1,116 +1,193 @@
 package com.example.pubapp;
 
+import org.json.*;
+
+import android.graphics.PorterDuff;
+import android.graphics.PorterDuffColorFilter;
 import android.app.Activity;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
+import android.text.InputFilter;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
+import android.widget.LinearLayout;
+import android.widget.ScrollView;
+import android.widget.TextView;
 
 public class Pubar extends Activity {
-	
-	private static class PubarHolder{
-		private static final Pubar INSTANCE = new Pubar();
-	}
-	
-	public static Pubar getInstance(){
-		return PubarHolder.INSTANCE;
-	}
-	
+
+	//Declare variables
+	private String pubName, sektion, colorCode;
+	private int pubId;
+
+	//Create the actionbar menu.
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		getMenuInflater().inflate(R.menu.main_menu, menu);
 		getActionBar().setDisplayShowHomeEnabled(false);
 		getActionBar().setDisplayShowTitleEnabled(false);
-		
+
 		return true;
-	} 
-	
+	}
+
+	//Create the Main.java activity and run the method createContent
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
+		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.pubar);
-		
-		Button elvan = (Button) findViewById(R.id.bElvan);
-		elvan.setOnClickListener(new OnClickListener() {
-			
-			@Override
-			public void onClick(View v) {
-				Intent intent = new Intent(v.getContext(), Pub.class);
-				intent.putExtra("id", "0");
-				startActivity(intent);
-			}
-		});
-		
-		Button basen = (Button) findViewById(R.id.bBasen);
-		basen.setOnClickListener(new OnClickListener() {
-			
-			@Override
-			public void onClick(View v) {
-				Intent intent = new Intent(v.getContext(), Pub.class);
-				intent.putExtra("id", "1");
-				startActivity(intent);
-			}
-		});
-		
-		Button bulten = (Button) findViewById(R.id.bBulten);
-		bulten.setOnClickListener(new OnClickListener() {
-			
-			@Override
-			public void onClick(View v) {
-				Intent intent = new Intent(v.getContext(), Pub.class);
-				intent.putExtra("id", "2");
-				startActivity(intent);
-			}
-		});
-		
-		Button clubAvancez = (Button) findViewById(R.id.bClubAvancez);
-		clubAvancez.setOnClickListener(new OnClickListener() {
-			
-			@Override
-			public void onClick(View v) {
-				Intent intent = new Intent(v.getContext(), Pub.class);
-				intent.putExtra("id", "3");
-				startActivity(intent);
-			}
-		});
-		
-		Button focus = (Button) findViewById(R.id.bFocus);
-		focus.setOnClickListener(new OnClickListener() {
-			
-			@Override
-			public void onClick(View v) {
-				Intent intent = new Intent(v.getContext(), Pub.class);
-				intent.putExtra("id", "4");
-				startActivity(intent);
-			}
-		});
-		
+
+		createContent();
+	}
+
+	//Add the listners and cases to the actionbar
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+		// Handle item selection
+		switch (item.getItemId()) {
+		case R.id.mHome:
+			Intent home = new Intent (this, Main.class);
+			startActivity(home);
+			return true;
+		case R.id.mPubar:
+			Intent pubar = new Intent(this, Pubar.class);
+			startActivity(pubar);
+			return true;
+		case R.id.mKarta:
+			Intent kar = new Intent(this, Karta.class);
+			startActivity(kar);
+			return true;
+		case R.id.mRunda:
+			Intent rund = new Intent(this, Runda.class);
+			startActivity(rund);
+			return true;
+		case R.id.mKal:
+			Intent kal = new Intent(this, Kalender.class);
+			startActivity(kal);
+			return true;
+		default:
+			return super.onOptionsItemSelected(item);
+		}
+	}
+
+	/**
+	 * 
+	 * Creates all content using different functions. 
+	 * 
+	 */
+	private void createContent() {
+		JSONArray content = CustomHttpClient.getJSON("1",
+				"http://trainwemust.com/pubapp/jsonscriptpubbar.php");
+		// fetches a JSONArray from the MySQL database through a PhP-script
+		displayJSONContent(content);
 	}
 	
-	public boolean onOptionsItemSelected(MenuItem item) {
-	    // Handle item selection
-	    switch (item.getItemId()) {
-	        case R.id.mPubar:
-	        	Intent pubar = new Intent(this, Pubar.class);
-	        	startActivity(pubar);
-	            return true;
-	        case R.id.mKarta:
-	        	Intent kar = new Intent(this, Karta.class);
-	        	startActivity(kar);
-	        	return true;
-	        case R.id.mRunda:
-	        	Intent rund = new Intent(this, Runda.class);
-	        	startActivity(rund);
-	        	return true;
-	        case R.id.mKal:
-	        	Intent kal = new Intent(this, Kalender.class);
-	        	startActivity(kal);
-	        	return true;
-	        default:
-	            return super.onOptionsItemSelected(item);
-	    }
+	/**
+	 * 
+	 * Takes a JSONArray and displays its content.
+	 * 
+	 * @param  jArray	the JSON array containing the content
+	 * 
+	 */	
+	private void displayJSONContent(JSONArray jArray) {
+		try {
+			for (int i = 0; i < jArray.length(); i++) {
+				JSONObject json_data = jArray.getJSONObject(i);
+				Log.i("log_tag", "id: " + json_data.getInt("id")
+						+ ", pubName: " + json_data.getString("pubName")
+						+ ", sektion: " + json_data.getString("sektion")
+						+ ", info: " + json_data.getString("info")
+						+ ", weburl: " + json_data.getString("weburl")
+						+ ", imgurl: " + json_data.getString("imgurl")
+						+ ", lat: " + json_data.getDouble("lat") + ", lng: "
+						+ json_data.getDouble("lng") + ", colorCode: "
+						+ json_data.getString("colorCode"));
+
+				pubId = json_data.getInt("id");
+				pubName = json_data.getString("pubName");
+				sektion = json_data.getString("sektion");
+				colorCode = json_data.getString("colorCode");
+
+				colorCode.toUpperCase();
+				TextView tv = addDynamicTextView(sektion, 20);
+				Button bt = addDynamicButton(pubId, Pub.class, pubName,
+						colorCode);
+
+				LinearLayout llinner = (LinearLayout) findViewById(R.id.llinner);
+				llinner.addView(tv);
+				llinner.addView(bt);
+
+			}
+		} catch (JSONException e) {
+			Log.e("log_tag", "Error parsing data " + e.toString());
+		}
+
 	}
+
+	/**
+	 * 
+	 * Creates a TextView containing a String with a max length.
+	 * 
+	 * @param  text		The string displayed in the TextView
+	 * @param  max		Max length of the String
+	 * 
+	 * @return a dynamic TextView containing the Param text
+	 */
+	private TextView addDynamicTextView(String text, int max) {
+		// creates a button dynamically
+		TextView tv = new TextView(this);
+		InputFilter[] fArray = new InputFilter[1];
+		fArray[0] = new InputFilter.LengthFilter(max);
+		tv.setFilters(fArray);
+
+		if (text.length() > max) {
+			text = text.substring(0, (max - 4));
+			text += "...";
+		}
+
+		tv.setText(text);
+		return tv;
+	}
+
+	/**
+	 * 
+	 * Creates a button with a listener to a specific class.
+	 * 
+	 * @param id		Used to send with the intent
+	 * @param goClass	Target class for the intent
+	 * @param text		The string displayed in the Button
+	 * 
+	 * @return a Dynamic Button linked to the goClass
+	 */
+	private Button addDynamicButton(final int id, final Class<?> goClass,
+			String text, String color) {
+		// creates a button dynamically
+		Button btn = new Button(this);
+		// sets button properties
+		btn.setHeight(0);
+		btn.setText(text);
+		// btn.setBackgroundResource(R.drawable.green_button);
+		// btn.setPadding(15, 15, 15, 15);
+		btn.getBackground().setColorFilter(Color.parseColor(color),
+				PorterDuff.Mode.OVERLAY);
+		btn.setOnClickListener(new OnClickListener() {
+
+			@Override
+			public void onClick(View v) {
+				Intent intent = new Intent(v.getContext(), goClass);
+				intent.putExtra("id", id);
+
+				startActivity(intent);
+			}
+		});
+
+		return btn;
+
+	}
+
 }

@@ -8,9 +8,7 @@ import java.net.URLConnection;
 import java.util.ArrayList;
 import org.apache.http.NameValuePair;
 import org.apache.http.message.BasicNameValuePair;
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
+import org.json.*;
 
 
 import android.app.Activity;
@@ -27,12 +25,13 @@ import android.widget.TextView;
 
 public class Event extends Activity {
 
-	
+	//Declare variables
 	private static final String TAG = null; 
 	private ImageView ivEventImgUrl; // for showing the "sektion" picture
 	private TextView tvEventTitle, tvEventPubname, tvEventDate, tvEventInfo, tvEventTid; // to show the information of the pub
 	private String pubName, eventName, eventInfo, eventStart, eventEnd, eventDateStart; // to store the result of MySQL query after decoding JSON
 	
+	//Create the actionbar menu. The app does this on every activity page
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		getMenuInflater().inflate(R.menu.main_menu, menu);
@@ -41,6 +40,8 @@ public class Event extends Activity {
 		return true;
 	} 
 	
+	
+	//Create the activity and id the textviews
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		StrictMode.setThreadPolicy(new StrictMode.ThreadPolicy.Builder()
@@ -57,16 +58,20 @@ public class Event extends Activity {
         tvEventPubname 	= (TextView) findViewById(R.id.tvEventPubname);
         tvEventDate 	= (TextView) findViewById(R.id.tvEventDate);
         tvEventTid 		= (TextView) findViewById(R.id.tvEventTid);
-        //ivEventImgUrl	= (ImageView) findViewById(R.id.ivEventImgUrl);
         tvEventInfo 	= (TextView) findViewById(R.id.tvEventInfo);
 		getInfo(id);
 		
 	}
 	
+	//Add the listners and cases to the actionbar
 	public boolean onOptionsItemSelected(MenuItem item) {
 	    // Handle item selection
 	    switch (item.getItemId()) {
-	        case R.id.mPubar:
+	    case R.id.mHome:
+			Intent home = new Intent (this, Main.class);
+			startActivity(home);
+			return true;    
+	    case R.id.mPubar:
 	        	Intent pubar = new Intent(this, Pubar.class);
 	        	startActivity(pubar);
 	            return true;
@@ -117,7 +122,7 @@ public class Event extends Activity {
 				JSONArray jArray = new JSONArray(result);
 				for(int i=0;i<jArray.length();i++){
 					JSONObject json_data = jArray.getJSONObject(i);
-					Log.i("log_tag","id: "+json_data.getInt("id")+
+					Log.i("log_tag","eventId: "+json_data.getInt("eventId")+
 							", pubName: "+json_data.getString("pubName")+
 							", eventName: "+json_data.getString("eventName")+
 							", eventInfo: "+json_data.getString("eventInfo")+

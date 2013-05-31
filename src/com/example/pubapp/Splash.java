@@ -5,7 +5,12 @@ import android.content.Intent;
 import android.os.Bundle;
 
 public class Splash extends Activity{
-
+	
+	/**
+	 * 
+	 * Creates a splash showing our icon for 3000 ms.
+	 * 
+	 */
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);

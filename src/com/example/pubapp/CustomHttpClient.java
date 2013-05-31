@@ -17,7 +17,7 @@ import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.message.BasicNameValuePair;
 import org.apache.http.params.HttpConnectionParams;
 import org.apache.http.params.HttpParams;
-import org.json.JSONArray;
+import org.json.*;
 
 import android.util.Log;
 
@@ -31,37 +31,39 @@ public class CustomHttpClient {
 	/**
 	 * Gets a JSONArray from the MySQL database through a PhP-script
 	 * 
-	 * @param sendparameter
-	 * 			parameter for the PhP-script
-	 * @param url
-	 * 			the whole url to the PhP-script
-	 * @return JSONArray
-	 * 			
+	 * @param sendparameter		parameter for the PhP-script
+	 * @param url	 			the URL to the PhP-script
+	 * 
+	 * @return A JSONArray fetched from the URL
+	 * 
 	 */
 	public static JSONArray getJSON(String sendparameter, String url) {
-		// declare parameters that are passed to PHP script i.e. the id "id" and its value submitted by the app   
+		// declare parameters that are passed to PHP script i.e. the id "id" and
+		// its value
 		ArrayList<NameValuePair> postParameters = new ArrayList<NameValuePair>();
 
 		// define the parameter
-		postParameters.add(new BasicNameValuePair("id",sendparameter));
+		postParameters.add(new BasicNameValuePair("id", sendparameter));
 		String response = null;
 		JSONArray JSONContent = null;
-		// call executeHttpPost method passing necessary parameters 
+		// call executeHttpPost method passing necessary parameters
 		try {
 			response = executeHttpPost(url, postParameters);
 
-
 			// store the result returned by PHP script that runs MySQL query
-			String result = response.toString(); 
-			JSONContent = new JSONArray(result);
-			//parse json data
-		}
-		catch (Exception e) {
-			Log.e("log_tag","Error in http connection!!" + e.toString());     
+			String result = response.toString();
+			if (result.trim().equals("null")) {
+				JSONContent = new JSONArray();
+			} else {
+				JSONContent = new JSONArray(result);
+			}
+		} catch (Exception e) {
+			Log.e("log_tag", "Error in http connection!!" + e.toString());
+			return null;
 		}
 		return JSONContent;
 	}
-	
+
 	/**
 	 * Get our single instance of our HttpClient object.
 	 * 
@@ -99,69 +101,47 @@ public class CustomHttpClient {
 		BufferedReader in = null;
 
 		try {
-
 			HttpClient client = getHttpClient();
-
 			HttpPost request = new HttpPost(url);
-
 			UrlEncodedFormEntity formEntity = new UrlEncodedFormEntity(
-
-			postParameters);
+					postParameters);
 
 			request.setEntity(formEntity);
-
 			HttpResponse response = client.execute(request);
 
 			in = new BufferedReader(new InputStreamReader(response.getEntity()
 					.getContent()));
-
 			StringBuffer sb = new StringBuffer("");
-
 			String line = "";
-
 			String NL = System.getProperty("line.separator");
 
 			while ((line = in.readLine()) != null) {
-
 				sb.append(line + NL);
-
 			}
 
 			in.close();
 
 			String result = sb.toString();
-
 			return result;
 
 		} finally {
 
 			if (in != null) {
-
 				try {
-
 					in.close();
-
 				} catch (IOException e) {
-
 					Log.e("log_tag", "Error converting result " + e.toString());
-
 					e.printStackTrace();
-
 				}
-
 			}
-
 		}
-
 	}
 
 	/**
 	 * 
 	 * Performs an HTTP GET request to the specified url.
 	 * 
-	 * @param url
-	 * 
-	 *            The web address to post the request to
+	 * @param url	The web address to post the request to
 	 * 
 	 * @return The result of the request
 	 * 
@@ -173,57 +153,35 @@ public class CustomHttpClient {
 		BufferedReader in = null;
 
 		try {
-
 			HttpClient client = getHttpClient();
-
 			HttpGet request = new HttpGet();
-
 			request.setURI(new URI(url));
-
 			HttpResponse response = client.execute(request);
-
 			in = new BufferedReader(new InputStreamReader(response.getEntity()
-
-			.getContent()));
+					.getContent()));
 
 			StringBuffer sb = new StringBuffer("");
-
 			String line = "";
-
 			String NL = System.getProperty("line.separator");
 
 			while ((line = in.readLine()) != null) {
-
 				sb.append(line + NL);
-
 			}
 
 			in.close();
 
 			String result = sb.toString();
-
 			return result;
 
 		} finally {
-
 			if (in != null) {
-
 				try {
-
 					in.close();
-
 				} catch (IOException e) {
-
 					Log.e("log_tag", "Error converting result " + e.toString());
-
 					e.printStackTrace();
-
 				}
-
 			}
-
 		}
-
 	}
-
 }

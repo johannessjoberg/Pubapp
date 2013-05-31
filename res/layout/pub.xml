@@ -1,44 +1,56 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-android:layout_width="fill_parent"
-android:layout_height="fill_parent"
-android:orientation="vertical" >
-<TextView
-android:id="@+id/tvTitle"
-android:layout_width="fill_parent"
-android:layout_height="wrap_content"
-android:text="Title" 
-style="@style/tvTitle"
-android:gravity="center"/>
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:orientation="vertical" >
 
-<TextView 
-android:id="@+id/tvSektion"
-android:layout_width="fill_parent"
-android:layout_height="wrap_content"
-android:text="Sektion"
-style="@style/tvSektion"
-android:gravity="center"
-/>
-<TextView
-android:id="@+id/tvWebUrl"
-android:layout_width="fill_parent"
-android:layout_height="wrap_content"
-android:text="Hemsida"
-android:linksClickable="true" 
-style="@style/tvWebUrl"
-/>
-<ImageView
-android:id="@+id/ivImgUrl"
-android:layout_width="200dp"
-android:layout_height="200dp"
-android:layout_gravity="center_horizontal"
-/>
-<TextView 
-android:id="@+id/tvInfo"
-android:layout_width="fill_parent"
-android:layout_height="wrap_content"
-android:text="HAHAHAHHAHHAHA"
-style="@style/tvInfo"
-/>
+    <TextView
+        android:id="@+id/tvTitle"
+        style="@style/tvTitle"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="Title" />
+
+    <TextView
+        android:id="@+id/tvSektion"
+        style="@style/tvSektion"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="Sektion" />
+
+    <TextView
+        android:id="@+id/tvWebUrl"
+        style="@style/tvWebUrl"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:linksClickable="true"
+        android:text="Hemsida" />
+
+    <ImageView
+        android:id="@+id/ivImgUrl"
+        android:layout_width="200dp"
+        android:layout_height="200dp"
+        android:layout_gravity="center_horizontal" />
+
+    <TextView
+        android:id="@+id/tvInfo"
+        style="@style/tvInfo"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text="HAHAHAHHAHHAHA" />
+
+    <TextView
+        android:id="@+id/tvEvents"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text="Kommande events:" >
+	</TextView>
+ 	<Spinner
+            android:id="@+id/eventSpinner"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content" >
+	</Spinner>
 
 </LinearLayout>
